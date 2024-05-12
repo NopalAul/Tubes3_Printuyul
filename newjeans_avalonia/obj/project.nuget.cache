@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KT2VjeN60Bdu2DCeWTt7mtm22Y+AcciDypVET/gxWZi3K7g0ZzJgmCP4jDOJ0YpdDVaA8IOZEzj5GkV441dxWg==",
+  "dgSpecHash": "5ShC32P0/Xy+M9dml8AGfDjvhVbJpb6ZcaHm4qb1Nn3dWVNkwe1SuY4oBHDq2ABda5cvYkR8CiEiIRLCZqLpfA==",
   "success": true,
-  "projectFilePath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/newjeans_avalonia.csproj",
+  "projectFilePath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj",
   "expectedPackageFiles": [
     "/Users/denisefeliciatiowanni/.nuget/packages/avalonia/11.0.10/avalonia.11.0.10.nupkg.sha512",
     "/Users/denisefeliciatiowanni/.nuget/packages/avalonia.angle.windows.natives/2.1.0.2023020321/avalonia.angle.windows.natives.2.1.0.2023020321.nupkg.sha512",

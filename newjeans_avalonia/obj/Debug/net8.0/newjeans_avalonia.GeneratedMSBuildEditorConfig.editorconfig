@@ -13,15 +13,15 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = newjeans_avalonia
-build_property.ProjectDir = /Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/
+build_property.ProjectDir = /Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/App.axaml]
+[/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/MainWindow.axaml]
+[/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/SecondWindow.axaml]
+[/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/SecondWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

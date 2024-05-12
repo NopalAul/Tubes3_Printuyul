@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/newjeans_avalonia.csproj": {}
+    "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj": {}
   },
   "projects": {
-    "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/newjeans_avalonia.csproj": {
+    "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/newjeans_avalonia.csproj",
+        "projectUniqueName": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj",
         "projectName": "newjeans_avalonia",
-        "projectPath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/newjeans_avalonia.csproj",
+        "projectPath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj",
         "packagesPath": "/Users/denisefeliciatiowanni/.nuget/packages/",
-        "outputPath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/stima3/newjeans_avalonia/obj/",
+        "outputPath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/denisefeliciatiowanni/.nuget/NuGet/NuGet.Config"
