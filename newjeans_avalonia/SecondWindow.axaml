@@ -1,0 +1,53 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="newjeans_avalonia.SecondWindow"
+        Title="Second Window"
+        Width="990" Height="646" CanResize="False">
+    <Window.Background>
+        <ImageBrush Source="avares://newjeans_avalonia/assets/home2.png"/>
+    </Window.Background>
+
+    <Window.Styles>
+        <!-- Custom Button Style -->
+        <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </Window.Styles>
+    
+    <Panel>
+        <Button x:Name="InsertButton" Width="430" Height="110" Margin="160,-420,0,0"
+                Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+            <Image Source="avares://newjeans_avalonia/assets/insert.png"/>
+        </Button>
+
+        <Image x:Name="DisplayImage" Height="130" Width="300" HorizontalAlignment="Left" Margin="120,-70,0,0"/>
+
+        <ComboBox x:Name="MethodDropdown" Width="260" Height="40" Margin="25,570,0,0"
+              VerticalAlignment="Top" BorderBrush="#3533BD" BorderThickness="3">
+            <ComboBoxItem Content="Boyer Moore"/>
+            <ComboBoxItem Content="Knuth Morris Pratt"/>
+        </ComboBox>
+
+        <Button x:Name="SearchButton" Width="300" Height="90" Margin="240,520,0,0"
+                Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+            <Image Source="avares://newjeans_avalonia/assets/search.png"/>
+        </Button>
+    </Panel>
+
+</Window>
