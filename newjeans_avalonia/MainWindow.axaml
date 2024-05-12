@@ -9,7 +9,8 @@
         Title="newjeans_avalonia"
         CanResize="False"
         Width="990"
-        Height="646">
+        Height="646"
+        WindowStartupLocation="CenterOwner">
     <Window.Background>
         <ImageBrush Source="avares://newjeans_avalonia/assets/home.png"/>
     </Window.Background>

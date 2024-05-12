@@ -5,7 +5,8 @@
         mc:Ignorable="d"
         x:Class="newjeans_avalonia.ThirdWindow"
         Title="Third Window"
-        Width="990" Height="646" CanResize="False">
+        Width="990" Height="646" CanResize="False"
+        WindowStartupLocation="CenterOwner">
     <Window.Background>
         <ImageBrush Source="avares://newjeans_avalonia/assets/home3.png"/>
     </Window.Background>
@@ -40,6 +41,19 @@
                 Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
             <Image Source="avares://newjeans_avalonia/assets/retry.png"/>
         </Button>
+
+        <!-- Text placeholders -->
+        <TextBlock x:Name="NamaText" FontSize="14" Margin="436,4" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="NikText" FontSize="14" Margin="50,100" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="TempatLahirText" FontSize="14" Margin="50,150" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="TanggalLahirText" FontSize="14" Margin="50,200" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="JenisKelaminText" FontSize="14" Margin="50,250" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="GolonganDarahText" FontSize="14" Margin="50,300" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="AlamatText" FontSize="14" Margin="50,350" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="AgamaText" FontSize="14" Margin="50,400" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="StatusPerkawinanText" FontSize="14" Margin="500,50" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="PekerjaanText" FontSize="14" Margin="500,100" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
+        <TextBlock x:Name="KewarganegaraanText" FontSize="14" Margin="500,150" Foreground="#3533BD" FontFamily="/assets/font/#Fairfax"/>
     </Panel>
 
 </Window>
