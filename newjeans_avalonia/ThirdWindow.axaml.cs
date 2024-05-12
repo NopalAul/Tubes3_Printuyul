@@ -8,9 +8,28 @@ namespace newjeans_avalonia;
 
 public partial class ThirdWindow : Window
 {
-    public ThirdWindow()
+    private Bitmap? currentImage;
+
+    public ThirdWindow(Bitmap? image = null)
     {
         InitializeComponent();
+        currentImage = image;
+
+        this.FindControl<Button>("BackButton")!.Click += OnBackButtonClick;
+        this.FindControl<Button>("RetryButton")!.Click += OnRetryButtonClick;
     }
 
+    private void OnBackButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        SecondWindow secondWindow = new SecondWindow(currentImage);
+        secondWindow.Show();
+        this.Close();
+    }
+
+    private void OnRetryButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        SecondWindow secondWindow = new SecondWindow();
+        secondWindow.Show();
+        this.Close();
+    }
 }

@@ -25,6 +25,8 @@
     <AvaloniaResource Include="assets/insert.png"/>
     <AvaloniaResource Include="assets/home3.png"/>
     <AvaloniaResource Include="assets/details.png"/>
+    <AvaloniaResource Include="assets/back.png"/>
+    <AvaloniaResource Include="assets/retry.png"/>
   </ItemGroup>
   
 </Project>

@@ -8,11 +8,16 @@ namespace newjeans_avalonia;
 
 public partial class SecondWindow : Window
 {
-    public SecondWindow()
+    public SecondWindow(Bitmap? initialImage = null)
     {
         InitializeComponent();
         InsertButton.Click += InsertButton_Click;
         this.FindControl<Button>("NavigateButton2")!.Click += OnNavigateButtonClick2;
+
+        if (initialImage != null)
+        {
+            DisplayImage.Source = initialImage;
+        }
     }
 
     private async void InsertButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -37,7 +42,8 @@ public partial class SecondWindow : Window
 
     private void OnNavigateButtonClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        ThirdWindow thirdWindow = new ThirdWindow();
+        Bitmap? currentBitmap = DisplayImage.Source as Bitmap;
+        ThirdWindow thirdWindow = new ThirdWindow(currentBitmap);
         thirdWindow.Show();
         this.Close(); // Optionally close the current window
     }
