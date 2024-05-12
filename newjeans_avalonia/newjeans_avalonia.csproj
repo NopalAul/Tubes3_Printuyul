@@ -27,6 +27,7 @@
     <AvaloniaResource Include="assets/details.png"/>
     <AvaloniaResource Include="assets/back.png"/>
     <AvaloniaResource Include="assets/retry.png"/>
+    <AvaloniaResource Include="assets/fonts/Fairfax.ttf"/>
   </ItemGroup>
   
 </Project>
