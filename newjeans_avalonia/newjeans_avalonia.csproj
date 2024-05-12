@@ -23,6 +23,8 @@
     <AvaloniaResource Include="assets/home2.png"/>
     <AvaloniaResource Include="assets/search.png"/>
     <AvaloniaResource Include="assets/insert.png"/>
+    <AvaloniaResource Include="assets/home3.png"/>
+    <AvaloniaResource Include="assets/details.png"/>
   </ItemGroup>
   
 </Project>

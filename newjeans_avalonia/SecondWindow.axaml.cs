@@ -12,6 +12,7 @@ public partial class SecondWindow : Window
     {
         InitializeComponent();
         InsertButton.Click += InsertButton_Click;
+        this.FindControl<Button>("NavigateButton2")!.Click += OnNavigateButtonClick2;
     }
 
     private async void InsertButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -32,5 +33,12 @@ public partial class SecondWindow : Window
             var bitmap = new Bitmap(result.First());
             DisplayImage.Source = bitmap;
         }
+    }
+
+    private void OnNavigateButtonClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        ThirdWindow thirdWindow = new ThirdWindow();
+        thirdWindow.Show();
+        this.Close(); // Optionally close the current window
     }
 }
