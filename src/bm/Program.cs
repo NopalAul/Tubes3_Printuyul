@@ -34,51 +34,12 @@ namespace bm
                 PrintBinaryImage2(binaryArray);
 
                 Console.WriteLine("beres.");
+
+                string asciiString = ConvertBinaryArrayToAsciiString(binaryArray);
+                Console.WriteLine(asciiString);
+                Console.WriteLine("beres 2.");
             }
 
-
-
-            // print binary image
-
-            // using (Image<L8> image = Image.Load<L8>(filePath)) // L8 adalah format grayscale 8-bit
-            // {
-            //     byte[,] binaryArray = ConvertToBinaryArray(image);
-
-            //     // cetak hasil binary array
-            //     for (int y = 0; y < 30; y++)
-            //     {
-            //         for (int x = 0; x < 30; x++)
-            //         {
-            //             Console.Write(binaryArray[y, x]);
-            //         }
-            //         Console.WriteLine();
-            //     }
-
-            //     // Untuk keperluan testing, konversi segmen 30x30 pixel menjadi ASCII dan cari menggunakan Boyer-Moore
-            //     string binaryString = ConvertToBinaryString(binaryArray, 0, 0, 30, 30);
-            //     string asciiString = ConvertBinaryToASCII(binaryString);
-
-            //     // Debug: Cetak hasil biner dan ASCII
-            //     Console.WriteLine("Binary String:");
-            //     Console.WriteLine(binaryString);
-            //     Console.WriteLine("ASCII String:");
-            //     Console.WriteLine(asciiString);
-
-            //     // Asumsikan referenceFingerprint adalah data sidik jari referensi yang telah diproses dalam format ASCII
-            //     string referenceASCIIString = LoadReferenceFingerprint();
-
-            //     BoyerMoore bm = new BoyerMoore(referenceASCIIString);
-            //     int matchIndex = bm.Search(asciiString);
-
-            //     if (matchIndex != -1)
-            //     {
-            //         Console.WriteLine("Fingerprint matched!");
-            //     }
-            //     else
-            //     {
-            //         Console.WriteLine("Fingerprint did not match.");
-            //     }
-            // }
         }
 
         // public static int[,] ConvertToBinary(Bitmap original, byte threshold = 128)
@@ -160,64 +121,40 @@ namespace bm
             }
         }
 
-    //     static byte[,] ConvertToBinaryArray(Image<L8> image)
-    //     {
-    //         int width = image.Width;
-    //         int height = image.Height;
-    //         byte[,] binaryArray = new byte[height, width];
-    //         for (int y = 0; y < height; y++)
-    //         {
-    //             for (int x = 0; x < width; x++)
-    //             {
-    //                 byte pixelValue = image[x, y].PackedValue;
-    //                 binaryArray[y, x] = (byte)(pixelValue < 128 ? 1 : 0);
-    //                 // Debug: Print pixel and binary value
-    //                 Console.WriteLine($"Pixel[{x}, {y}]: {pixelValue}, Binary: {(pixelValue < 128 ? 1 : 0)}");
-    //             }
-    //         }
-    //         return binaryArray;
-    //     }
+        static string ConvertBinaryArrayToAsciiString(int[,] binaryArray)
+        {
+            int rows = binaryArray.GetLength(0);
+            int columns = binaryArray.GetLength(1);
+            
+            StringBuilder asciiString = new StringBuilder();
 
+            for (int i = 0; i < rows; i++)
+            {
+                StringBuilder binaryString = new StringBuilder();
+                for (int j = 0; j < columns; j++)
+                {
+                    binaryString.Append(binaryArray[i, j]);
+                }
 
-    //     static string ConvertToBinaryString(byte[,] data, int startX, int startY, int width, int height)
-    //     {
-    //         StringBuilder binaryString = new StringBuilder();
-    //         for (int y = startY; y < startY + height; y++)
-    //         {
-    //             for (int x = startX; x < startX + width; x++)
-    //             {
-    //                 binaryString.Append(data[y, x]);
-    //             }
-    //         }
-    //         return binaryString.ToString();
-    //     }
+                string binary = binaryString.ToString();
+                // Ensure the binary string has a length that is a multiple of 8
+                int remainder = binary.Length % 8;
+                if (remainder != 0)
+                {
+                    binary = binary.PadRight(binary.Length + (8 - remainder), '0');
+                }
 
-    //     static string ConvertBinaryToASCII(string binaryString)
-    //     {
-    //         // Pad binary string to make sure its length is a multiple of 8
-    //         int paddingLength = 8 - (binaryString.Length % 8);
-    //         if (paddingLength != 8)
-    //         {
-    //             binaryString = binaryString.PadRight(binaryString.Length + paddingLength, '0');
-    //         }
+                for (int k = 0; k < binary.Length; k += 8)
+                {
+                    string byteString = binary.Substring(k, 8);
+                    int asciiCode = Convert.ToInt32(byteString, 2);
+                    char character = (char)asciiCode;
+                    asciiString.Append(character);
+                }
+            }
 
-    //         StringBuilder asciiString = new StringBuilder();
-    //         for (int i = 0; i < binaryString.Length; i += 8)
-    //         {
-    //             string byteString = binaryString.Substring(i, 8);
-    //             char asciiChar = (char)Convert.ToByte(byteString, 2);
-    //             asciiString.Append(asciiChar);
-    //         }
-    //         return asciiString.ToString();
-    //     }
-
-    //     static string LoadReferenceFingerprint()
-    //     {
-    //         // Load dan kembalikan data sidik jari referensi dalam format ASCII
-    //         // Untuk contoh ini, kita mengembalikan string dummy
-    //         return "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00¨\x00\x00%P`\x00À\x89\x82\x03õÿà\x0füÿà?¾ÿ\x80ÿÿû\x03ÿüü\x0fÿÿð\x1fÿÿÀÿÿÿ\x01ÿÿü\x07ÿÿð\x1fÿÿÀ\x7fÿÿ\x01ÿÿü\x07ÿÿð\x0fÿÿÀ\x1fÿÿ\x00?ÿø\x00\x7fÿ\x08";
-    //     }
-    // }
+            return asciiString.ToString();
+        }
 
     // public class BoyerMoore
     // {
