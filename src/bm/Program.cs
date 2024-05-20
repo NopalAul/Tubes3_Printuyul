@@ -52,8 +52,11 @@ namespace bm
             // string text = "THIS IS A SIMPLE EXAMPLE";
             // string pattern = "EXAMPLE";
 
-            string text = "denise felicia tiowanni";
-            string pattern = "ici";
+            // string text = "denise felicia tiowanni";
+            // string pattern = "ici";
+
+            string text = "aku suka aku kamu aku lagi aku";
+            string pattern = "aku";
 
             List<int> result = bm.Search(text, pattern);
 
