@@ -55,10 +55,19 @@ namespace bm
             // string text = "denise felicia tiowanni";
             // string pattern = "ici";
 
+            // string text = "aku suka aku kamu aku lagi aku";
+            // string pattern = "aku";
+
             string text = "aku suka aku kamu aku lagi aku";
-            string pattern = "aku";
+            string pattern = "cinta";
 
             List<int> result = bm.Search(text, pattern);
+
+            if (result.Count == 0)
+            {
+                Console.WriteLine("sed ga ketemu");
+                return;
+            }
 
             Console.WriteLine("yey ketemu, ni indeksnya:");
             foreach (int index in result)
