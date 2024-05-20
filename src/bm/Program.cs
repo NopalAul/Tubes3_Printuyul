@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Collections.Generic;
 // using System;
 // using System.Drawing;
 // using System.Drawing.Imaging;
@@ -25,19 +26,41 @@ namespace bm
 
             // Console.WriteLine("beres.");
 
-            using (Image<Rgba32> originalImage = Image.Load<Rgba32>("jari2.png"))
+            // MAC TESTING STARTS HERE
+
+            // using (Image<Rgba32> originalImage = Image.Load<Rgba32>("jari2.png"))
+            // {
+            //     // Convert to binary and get the binary array
+            //     int[,] binaryArray = ConvertToBinary2(originalImage);
+
+            //     // Print the binary image
+            //     PrintBinaryImage2(binaryArray);
+
+            //     Console.WriteLine("beres.");
+
+            //     string asciiString = ConvertBinaryArrayToAsciiString(binaryArray);
+            //     Console.WriteLine(asciiString);
+            //     Console.WriteLine("beres 2.");
+            // }
+
+            // TES BOYER MOORE
+
+            BoyerMoore bm = new BoyerMoore();
+            // string text = "a pattern matching algorithm";
+            // string pattern = "rithm";
+
+            // string text = "THIS IS A SIMPLE EXAMPLE";
+            // string pattern = "EXAMPLE";
+
+            string text = "denise felicia tiowanni";
+            string pattern = "ici";
+
+            List<int> result = bm.Search(text, pattern);
+
+            Console.WriteLine("yey ketemu, ni indeksnya:");
+            foreach (int index in result)
             {
-                // Convert to binary and get the binary array
-                int[,] binaryArray = ConvertToBinary2(originalImage);
-
-                // Print the binary image
-                PrintBinaryImage2(binaryArray);
-
-                Console.WriteLine("beres.");
-
-                string asciiString = ConvertBinaryArrayToAsciiString(binaryArray);
-                Console.WriteLine(asciiString);
-                Console.WriteLine("beres 2.");
+                Console.WriteLine(index);
             }
 
         }
@@ -156,79 +179,106 @@ namespace bm
             return asciiString.ToString();
         }
 
-    // public class BoyerMoore
-    // {
-    //     private int[] badCharShift;
-    //     private int[] goodSuffixShift;
-    //     private string pattern;
+        class BoyerMoore
+        {
+            private int[] BuildBadCharacterTable(string pattern)
+            {
+                int[] badCharTable = new int[256];
+                int patternLength = pattern.Length;
 
-    //     public BoyerMoore(string pattern)
-    //     {
-    //         this.pattern = pattern;
-    //         Preprocess();
-    //     }
+                for (int i = 0; i < 256; i++)
+                {
+                    badCharTable[i] = -1;
+                }
 
-    //     private void Preprocess()
-    //     {
-    //         int m = pattern.Length;
-    //         badCharShift = new int[256];
-    //         goodSuffixShift = new int[m];
+                for (int i = 0; i < patternLength; i++)
+                {
+                    badCharTable[(int)pattern[i]] = i;
+                }
 
-    //         for (int i = 0; i < 256; i++)
-    //             badCharShift[i] = m;
+                return badCharTable;
+            }
 
-    //         for (int i = 0; i < m - 1; i++)
-    //             badCharShift[pattern[i]] = m - i - 1;
+            private int[] BuildGoodSuffixTable(string pattern)
+            {
+                int m = pattern.Length;
+                int[] goodSuffixTable = new int[m];
+                int[] suffixes = new int[m];
+                
+                for (int i = 0; i < m; i++)
+                {
+                    suffixes[i] = -1;
+                    goodSuffixTable[i] = m;
+                }
 
-    //         int[] suffixes = new int[m];
-    //         suffixes[m - 1] = m;
-    //         for (int i = m - 2, j = m - 1; i >= 0; i--)
-    //         {
-    //             if (i > j && suffixes[i + m - 1 - j] < i - j)
-    //                 suffixes[i] = suffixes[i + m - 1 - j];
-    //             else
-    //             {
-    //                 if (i < j)
-    //                     j = i;
-    //                 while (j >= 0 && pattern[j] == pattern[j + m - 1 - i])
-    //                     j--;
-    //                 suffixes[i] = i - j;
-    //             }
-    //         }
+                int f = 0;
+                int g = m - 1;
 
-    //         for (int i = 0; i < m; i++)
-    //             goodSuffixShift[i] = m;
+                for (int i = m - 2; i >= 0; --i)
+                {
+                    if (i > g && suffixes[i + m - 1 - f] < i - g)
+                    {
+                        suffixes[i] = suffixes[i + m - 1 - f];
+                    }
+                    else
+                    {
+                        if (i < g)
+                        {
+                            g = i;
+                        }
+                        f = i;
+                        while (g >= 0 && pattern[g] == pattern[g + m - 1 - f])
+                        {
+                            --g;
+                        }
+                        suffixes[i] = f - g;
+                    }
+                }
 
-    //         for (int i = m - 1, j = 0; i >= 0; i--)
-    //             if (suffixes[i] == i + 1)
-    //                 for (; j < m - 1 - i; j++)
-    //                     if (goodSuffixShift[j] == m)
-    //                         goodSuffixShift[j] = m - 1 - i;
+                for (int i = 0; i < m - 1; ++i)
+                {
+                    goodSuffixTable[m - 1 - suffixes[i]] = m - 1 - i;
+                }
 
-    //         for (int i = 0; i <= m - 2; i++)
-    //             goodSuffixShift[m - 1 - suffixes[i]] = m - 1 - i;
-    //     }
+                for (int i = 0; i <= m - 2; ++i)
+                {
+                    goodSuffixTable[m - 1 - suffixes[i]] = m - 1 - i;
+                }
 
-    //     public int Search(string text)
-    //     {
-    //         int n = text.Length;
-    //         int m = pattern.Length;
-    //         int skip;
-    //         for (int i = 0; i <= n - m; i += skip)
-    //         {
-    //             skip = 0;
-    //             for (int j = m - 1; j >= 0; j--)
-    //             {
-    //                 if (pattern[j] != text[i + j])
-    //                 {
-    //                     skip = Math.Max(1, j - badCharShift[text[i + j]]);
-    //                     break;
-    //                 }
-    //             }
-    //             if (skip == 0)
-    //                 return i;
-    //         }
-    //         return -1;
-    //     }
+                return goodSuffixTable;
+            }
+
+            public List<int> Search(string text, string pattern)
+            {
+                List<int> matches = new List<int>();
+                int[] badCharTable = BuildBadCharacterTable(pattern);
+                int[] goodSuffixTable = BuildGoodSuffixTable(pattern);
+                int textLength = text.Length;
+                int patternLength = pattern.Length;
+                int s = 0;
+
+                while (s <= (textLength - patternLength))
+                {
+                    int j = patternLength - 1;
+
+                    while (j >= 0 && pattern[j] == text[s + j])
+                    {
+                        j--;
+                    }
+
+                    if (j < 0)
+                    {
+                        matches.Add(s);
+                        s += (s + patternLength < textLength) ? patternLength - badCharTable[text[s + patternLength]] : 1;
+                    }
+                    else
+                    {
+                        s += Math.Max(goodSuffixTable[j], j - badCharTable[text[s + j]]);
+                    }
+                }
+
+                return matches;
+            }
+        }
     }
 }
