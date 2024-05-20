@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Text;
-using System;
-using System.Drawing;
-using System.Drawing.Imaging;
+// using System;
+// using System.Drawing;
+// using System.Drawing.Imaging;
+
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace bm
 {
@@ -10,16 +14,29 @@ namespace bm
     {
         static void Main(string[] args)
         {
-            // Load the image
-            Bitmap originalImage = new Bitmap("jari2.png");
+            // // Load the image
+            // Bitmap originalImage = new Bitmap("jari2.png");
 
-            // Convert to binary and get the binary array
-            int[,] binaryArray = ConvertToBinary(originalImage);
+            // // Convert to binary and get the binary array
+            // int[,] binaryArray = ConvertToBinary(originalImage);
 
-            // Print the binary image
-            PrintBinaryImage(binaryArray);
+            // // Print the binary image
+            // PrintBinaryImage(binaryArray);
 
-            Console.WriteLine("beres.");
+            // Console.WriteLine("beres.");
+
+            using (Image<Rgba32> originalImage = Image.Load<Rgba32>("jari2.png"))
+            {
+                // Convert to binary and get the binary array
+                int[,] binaryArray = ConvertToBinary2(originalImage);
+
+                // Print the binary image
+                PrintBinaryImage2(binaryArray);
+
+                Console.WriteLine("beres.");
+            }
+
+
 
             // print binary image
 
@@ -64,17 +81,57 @@ namespace bm
             // }
         }
 
-        public static int[,] ConvertToBinary(Bitmap original, byte threshold = 128)
-        {
-            // Create a 2D array to store binary values
-            int[,] binaryArray = new int[original.Width, original.Height];
+        // public static int[,] ConvertToBinary(Bitmap original, byte threshold = 128)
+        // {
+        //     // Create a 2D array to store binary values
+        //     int[,] binaryArray = new int[original.Width, original.Height];
 
-            for (int y = 0; y < original.Height; y++)
+        //     for (int y = 0; y < original.Height; y++)
+        //     {
+        //         for (int x = 0; x < original.Width; x++)
+        //         {
+        //             // Get the pixel color
+        //             Color pixelColor = original.GetPixel(x, y);
+
+        //             // Convert the pixel to grayscale
+        //             byte grayValue = (byte)(0.3 * pixelColor.R + 0.59 * pixelColor.G + 0.11 * pixelColor.B);
+
+        //             // Convert to binary based on the threshold
+        //             binaryArray[x, y] = grayValue < threshold ? 0 : 1;
+        //         }
+        //     }
+
+        //     return binaryArray;
+        // }
+
+        // public static void PrintBinaryImage(int[,] binaryArray)
+        // {
+        //     int width = binaryArray.GetLength(0);
+        //     int height = binaryArray.GetLength(1);
+
+        //     for (int y = 0; y < height; y++)
+        //     {
+        //         for (int x = 0; x < width; x++)
+        //         {
+        //             // Print 0 or 1 based on the binary value
+        //             Console.Write(binaryArray[x, y]);
+        //         }
+        //         Console.WriteLine();
+        //     }
+        // }
+
+        public static int[,] ConvertToBinary2(Image<Rgba32> original, byte threshold = 128)
+        {
+            int width = original.Width;
+            int height = original.Height;
+            int[,] binaryArray = new int[width, height];
+
+            for (int y = 0; y < height; y++)
             {
-                for (int x = 0; x < original.Width; x++)
+                for (int x = 0; x < width; x++)
                 {
                     // Get the pixel color
-                    Color pixelColor = original.GetPixel(x, y);
+                    Rgba32 pixelColor = original[x, y];
 
                     // Convert the pixel to grayscale
                     byte grayValue = (byte)(0.3 * pixelColor.R + 0.59 * pixelColor.G + 0.11 * pixelColor.B);
@@ -87,7 +144,7 @@ namespace bm
             return binaryArray;
         }
 
-        public static void PrintBinaryImage(int[,] binaryArray)
+        public static void PrintBinaryImage2(int[,] binaryArray)
         {
             int width = binaryArray.GetLength(0);
             int height = binaryArray.GetLength(1);
