@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.Text;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace FingerprintIdentification
 {
@@ -8,31 +10,33 @@ namespace FingerprintIdentification
     {
         static void Main(string[] args)
         {
-            string filePath = "src/bm/jari2.png"; // Ganti dengan path gambar sidik jari Anda
-            Bitmap image = new Bitmap(filePath);
-            byte[,] binaryArray = ConvertToBinaryArray(image);
-
-            // Untuk keperluan testing, konversi segmen 30x30 pixel menjadi ASCII dan cari menggunakan Boyer-Moore
-            string binaryString = ConvertToBinaryString(binaryArray, 0, 0, 30, 30);
-            string asciiString = ConvertBinaryToASCII(binaryString);
-
-            // Asumsikan referenceFingerprint adalah data sidik jari referensi yang telah diproses dalam format ASCII
-            string referenceASCIIString = LoadReferenceFingerprint();
-
-            BoyerMoore bm = new BoyerMoore(referenceASCIIString);
-            int matchIndex = bm.Search(asciiString);
-
-            if (matchIndex != -1)
+            string filePath = "jari2.png"; // Ganti dengan path gambar sidik jari Anda
+            using (Image<L8> image = Image.Load<L8>(filePath)) // L8 adalah format grayscale 8-bit
             {
-                Console.WriteLine("Fingerprint matched!");
-            }
-            else
-            {
-                Console.WriteLine("Fingerprint did not match.");
+                byte[,] binaryArray = ConvertToBinaryArray(image);
+
+                // Untuk keperluan testing, konversi segmen 30x30 pixel menjadi ASCII dan cari menggunakan Boyer-Moore
+                string binaryString = ConvertToBinaryString(binaryArray, 0, 0, 30, 30);
+                string asciiString = ConvertBinaryToASCII(binaryString);
+
+                // Asumsikan referenceFingerprint adalah data sidik jari referensi yang telah diproses dalam format ASCII
+                string referenceASCIIString = LoadReferenceFingerprint();
+
+                BoyerMoore bm = new BoyerMoore(referenceASCIIString);
+                int matchIndex = bm.Search(asciiString);
+
+                if (matchIndex != -1)
+                {
+                    Console.WriteLine("Fingerprint matched!");
+                }
+                else
+                {
+                    Console.WriteLine("Fingerprint did not match.");
+                }
             }
         }
 
-        static byte[,] ConvertToBinaryArray(Bitmap image)
+        static byte[,] ConvertToBinaryArray(Image<L8> image)
         {
             int width = image.Width;
             int height = image.Height;
@@ -41,8 +45,8 @@ namespace FingerprintIdentification
             {
                 for (int x = 0; x < width; x++)
                 {
-                    Color pixelColor = image.GetPixel(x, y);
-                    binaryArray[y, x] = (byte)(pixelColor.R > 128 ? 1 : 0);
+                    byte pixelValue = image[x, y].PackedValue;
+                    binaryArray[y, x] = (byte)(pixelValue < 128 ? 1 : 0);
                 }
             }
             return binaryArray;
@@ -63,6 +67,13 @@ namespace FingerprintIdentification
 
         static string ConvertBinaryToASCII(string binaryString)
         {
+            // Pad binary string to make sure its length is a multiple of 8
+            int paddingLength = 8 - (binaryString.Length % 8);
+            if (paddingLength != 8)
+            {
+                binaryString = binaryString.PadRight(binaryString.Length + paddingLength, '0');
+            }
+
             StringBuilder asciiString = new StringBuilder();
             for (int i = 0; i < binaryString.Length; i += 8)
             {
@@ -72,6 +83,7 @@ namespace FingerprintIdentification
             }
             return asciiString.ToString();
         }
+
 
         static string LoadReferenceFingerprint()
         {
