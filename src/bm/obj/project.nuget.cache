@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "XvBbia72pKJCyaoohO9eXnalGItVpw++A/LUCbsJNPtjMhlPSeoZO480Z1hHmI0ncKP6zncf/aK2c5k6aK0+tw==",
+  "success": true,
+  "projectFilePath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/bm/bm.csproj",
+  "expectedPackageFiles": [
+    "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.win32.systemevents/8.0.0/microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "/Users/denisefeliciatiowanni/.nuget/packages/system.drawing.common/8.0.5/system.drawing.common.8.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}
