@@ -1,15 +1,33 @@
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.AssemblyInfoInputs.cache
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.AssemblyInfo.cs
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.csproj.CoreCompileInputs.cache
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.sourcelink.json
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\bin\Debug\net8.0\algorithm.exe
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\bin\Debug\net8.0\algorithm.deps.json
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\bin\Debug\net8.0\algorithm.runtimeconfig.json
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\bin\Debug\net8.0\algorithm.dll
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\bin\Debug\net8.0\algorithm.pdb
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.dll
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\refint\algorithm.dll
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.pdb
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\algorithm.genruntimeconfig.cache
-C:\Users\Naufal\Documents\003. TAHUN KEDUA\SEMESTER 4\STIMA\TUBES_3\Tubes3_Printuyul\src\algorithm\obj\Debug\net8.0\ref\algorithm.dll
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.AssemblyInfoInputs.cache
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.AssemblyInfo.cs
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.csproj.CoreCompileInputs.cache
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.sourcelink.json
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.exe
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.deps.json
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.runtimeconfig.json
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.dll
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.pdb
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.dll
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/refint/algorithm.dll
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.pdb
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.genruntimeconfig.cache
+C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/ref/algorithm.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.csproj.AssemblyReference.cache
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.GeneratedMSBuildEditorConfig.editorconfig
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.AssemblyInfoInputs.cache
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.AssemblyInfo.cs
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.csproj.CoreCompileInputs.cache
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.sourcelink.json
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/refint/algorithm.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.pdb
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.deps.json
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.runtimeconfig.json
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/algorithm.pdb
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/bin/Debug/net8.0/SixLabors.ImageSharp.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.csproj.Up2Date
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/algorithm.genruntimeconfig.cache
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/src/algorithm/obj/Debug/net8.0/ref/algorithm.dll
