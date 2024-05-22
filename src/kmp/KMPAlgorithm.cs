@@ -4,47 +4,47 @@ using System.Collections.Generic;
 public class KMPAlgorithm
 {
     // Method to compute the LPS (Longest Prefix Suffix) array
-    private static int[] ComputeLPSArray(string pattern)
+    private static int[] computeBorder(string pattern)
     {
-        int length = 0; // length of the previous longest prefix suffix
+        int j = 0; // length of the previous longest prefix suffix
         int i = 1;
-        int[] lps = new int[pattern.Length];
-        lps[0] = 0; // lps[0] is always 0
+        int[] fail = new int[pattern.Length];
+        fail[0] = 0; // fail[0] is always 0
 
-        // The loop calculates lps[i] for i = 1 to M-1
+        // The loop calculates fail[i] for i = 1 to M-1
         while (i < pattern.Length)
         {
-            if (pattern[i] == pattern[length])
+            if (pattern[i] == pattern[j])
             {
-                length++;
-                lps[i] = length;
+                j++;
+                fail[i] = j;
                 i++;
             }
             else
             {
-                if (length != 0)
+                if (j != 0)
                 {
-                    length = lps[length - 1];
+                    j = fail[j - 1];
                 }
                 else
                 {
-                    lps[i] = 0;
+                    fail[i] = 0;
                     i++;
                 }
             }
         }
-        return lps;
+        return fail;
     }
 
     // Method to perform KMP algorithm
-    public static List<int> KMPSearch(string text, string pattern)
+    public static List<int> KMP(string text, string pattern)
     {
         int M = pattern.Length;
         int N = text.Length;
         List<int> matches = new List<int>();
 
-        // Create lps[] that will hold the longest prefix suffix values for pattern
-        int[] lps = ComputeLPSArray(pattern);
+        // Create fail[] that will hold the longest prefix suffix values for pattern
+        int[] fail = computeBorder(pattern);
 
         int i = 0; // index for text[]
         int j = 0; // index for pattern[]
@@ -59,13 +59,13 @@ public class KMPAlgorithm
             if (j == M)
             {
                 matches.Add(i - j);
-                j = lps[j - 1];
+                j = fail[j - 1];
             }
             else if (i < N && pattern[j] != text[i])
             {
                 if (j != 0)
                 {
-                    j = lps[j - 1];
+                    j = fail[j - 1];
                 }
                 else
                 {
@@ -82,13 +82,18 @@ public class KMPAlgorithm
     {
         // string text = "ABABDABACDABABCABAB";
         // string pattern = "ABABCABAB";
-        string text = "ini ucok";
-        string pattern = "ucok";
-        List<int> matchIndexes = KMPSearch(text, pattern);
+        string text = "ini ucok ucok ucok ucok";
+        string pattern = "ko";
+        List<int> matchIndexes = KMP(text, pattern);
 
-        for (int index = 0; index < matchIndexes.Count; index++)
-        {
-            Console.WriteLine("Pattern found at index: " + matchIndexes[index]);
+        if (matchIndexes.Count != 0) {
+            for (int index = 0; index < matchIndexes.Count; index++)
+            {
+                Console.WriteLine("Pattern found at index: " + matchIndexes[index]);
+            }
+        }
+        else {
+            Console.WriteLine("Pattern not found");
         }
 
         // Console.WriteLine("Pattern found at indexes: " + string.Join(", ", matchIndexes));
