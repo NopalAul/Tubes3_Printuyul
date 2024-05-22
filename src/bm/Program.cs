@@ -61,7 +61,7 @@ namespace bm
             string text = "aku suka aku kamu aku lagi aku";
             string pattern = "cinta";
 
-            List<int> result = bm.Search(text, pattern);
+            List<int> result = bm.BM(text, pattern);
 
             if (result.Count == 0)
             {
@@ -260,7 +260,7 @@ namespace bm
                 return goodSuffixTable;
             }
 
-            public List<int> Search(string text, string pattern)
+            public List<int> BM(string text, string pattern)
             {
                 List<int> matches = new List<int>();
                 int[] badCharTable = BuildBadCharacterTable(pattern);
