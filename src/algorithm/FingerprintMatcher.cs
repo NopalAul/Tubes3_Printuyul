@@ -16,55 +16,34 @@ public class FingerprintMatcher
         this.algorithm = algorithm;
     }
 
-    // private int HammingDistance(string s1, string s2)
-    // {
-    //     int distance = 0;
-    //     int len = Math.Min(s1.Length, s2.Length);
-    //     // print len
-    //     Console.WriteLine($"len: {len}");
-    //     for (int i = 0; i < len; i++)
-    //     {   
-    //         // print s1[i] and s2[i]
-    //         if (s1[i] != s2[i])
-    //         {
-    //             Console.WriteLine($"s1[i]: {s1[i]}");
-    //             Console.WriteLine($"s2[i]: {s2[i]}");
-    //             Console.WriteLine();
-    //             distance++;
-    //         }
-    //     }
-    //     // print distance
-    //     Console.WriteLine($"distance: {distance}");
-    //     return distance;
-    // }
     private int HammingDistance(string s1, string s2)
-{
-    // Normalize both strings to FormC (composed form)
-    s1 = s1.Normalize(NormalizationForm.FormC);
-    s2 = s2.Normalize(NormalizationForm.FormC);
-
-    int distance = 0;
-    int len = Math.Min(s1.Length, s2.Length);
-
-    // // Print the length of the strings being compared
-    // Console.WriteLine($"len: {len}");
-
-    for (int i = 0; i < len; i++)
     {
-        // // Print the characters and their corresponding Unicode code points
-        // Console.WriteLine($"s1[{i}]: '{s1[i]}' (U+{(int)s1[i]:X4})");
-        // Console.WriteLine($"s2[{i}]: '{s2[i]}' (U+{(int)s2[i]:X4})");
+        // Normalize both strings to FormC (composed form)
+        s1 = s1.Normalize(NormalizationForm.FormC);
+        s2 = s2.Normalize(NormalizationForm.FormC);
 
-        if (s1[i] != s2[i])
+        int distance = 0;
+        int len = Math.Min(s1.Length, s2.Length);
+
+        // // Print the length of the strings being compared
+        // Console.WriteLine($"len: {len}");
+
+        for (int i = 0; i < len; i++)
         {
-            distance++;
-        }
-    }
+            // // Print the characters and their corresponding Unicode code points
+            // Console.WriteLine($"s1[{i}]: '{s1[i]}' (U+{(int)s1[i]:X4})");
+            // Console.WriteLine($"s2[{i}]: '{s2[i]}' (U+{(int)s2[i]:X4})");
 
-    // // Print the final distance
-    // Console.WriteLine($"distance: {distance}");
-    return distance;
-}
+            if (s1[i] != s2[i])
+            {
+                distance++;
+            }
+        }
+
+        // // Print the final distance
+        // Console.WriteLine($"distance: {distance}");
+        return distance;
+    }
 
 
     public (List<int> matches, Dictionary<string, double> similarityPercentages) Search(

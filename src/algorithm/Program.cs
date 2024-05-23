@@ -39,19 +39,6 @@ public class Program
             }
         }
 
-        // // Example of printing the results
-        // Console.WriteLine("Full Image HashMap:");
-        // foreach (var kvp in referenceImagesMap)
-        // {
-        //     Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
-        // }
-
-        // Console.WriteLine("\nCropped Image HashMap:");
-        // foreach (var kvp in croppedReferenceImagesMap)
-        // {
-        //     Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
-        // }
-
         // print len filePaths
         Console.WriteLine($"len filePaths: {filePaths.Length}");
 
@@ -107,27 +94,26 @@ public class Program
         // string patternPath = "../../test/uploaded/225up.BMP";
         string patternPath = "../../test/225__M_Left_little_finger.BMP";
         string pattern = "";
+
         // crop the patternPath image with ImageConverter.CropImageTo1x64 then conver to ascii string
         using (Image<Rgba32> patternImage = Image.Load<Rgba32>(patternPath))
-        {
+        {   
+            // // print pettern binary array
+            // Console.WriteLine("pattern binary array:");
+            // int[,] patternBinaryArray = ImageConverter.ConvertToBinary(patternImage);
+            // ImageConverter.PrintBinaryArray(patternBinaryArray);
             using (Image<Rgba32> croppedPatternImage = ImageConverter.CropImageTo1x64(patternImage))
             {
                 int[,] croppedPatternBinaryArray = ImageConverter.ConvertToBinary(croppedPatternImage);
+                // // print cropped pattern binary array
+                // Console.WriteLine("cropped pattern binary array:");
+                ImageConverter.PrintBinaryArray(croppedPatternBinaryArray);
                 pattern = ImageConverter.ConvertBinaryArrayToAsciiString(croppedPatternBinaryArray);
             }
         }
         
         // print pattern
         Console.WriteLine($"pattern uploaded image: {pattern}");
-
-        // Simulate reference images with dummy ASCII strings
-        // string[] referenceImages = { "reference1.txt", "reference2.txt", "reference3.txt" };
-
-        // Write dummy ASCII strings to reference files for simulation
-        // File.WriteAllText("reference1.txt", "iÿÿÿÿÿÿÿÿÿÿÌÿÿû:Ãÿÿ<Ìÿÿuwûÿkÿý,Pþÿ¿/ÿÿ");
-        // File.WriteAllText("reference2.txt", "iÿÿÿasdiajsudheurfheuafbeiybfiayebfiayef");
-        // File.WriteAllText("reference3.txt", "iniloÿÿÿÿÿÿÿÿdajdoeiaoidjeinilobeneaisdmas");
-        // File.WriteAllText("reference4.txt", "inilobener");
 
         // Choose algorithm: "KMP" or "BM"
         string algorithmChoice = "KMP";
