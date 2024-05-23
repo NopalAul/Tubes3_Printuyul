@@ -8,31 +8,6 @@ using System.Text;
 
 public class ImageConverter
 {
-    // public static void Main(string[] args)
-    // {
-    //     string folderPath = "test"; 
-    //     string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
-
-    //     Dictionary<string, string> fullImageMap = new Dictionary<string, string>();
-    //     Dictionary<string, string> croppedImageMap = new Dictionary<string, string>();
-
-    //     foreach (string filePath in filePaths)
-    //     {
-    //         using (Image<Rgba32> image = Image.Load<Rgba32>(filePath))
-    //         {
-    //             int[,] binaryArray = ConvertToBinary(image);
-    //             string asciiString = ConvertBinaryArrayToAsciiString(binaryArray);
-    //             fullImageMap[filePath] = asciiString;
-
-    //             using (Image<Rgba32> croppedImage = CropImageTo1x32(image))
-    //             {
-    //                 int[,] croppedBinaryArray = ConvertToBinary(croppedImage);
-    //                 string croppedAsciiString = ConvertBinaryArrayToAsciiString(croppedBinaryArray);
-    //                 croppedImageMap[filePath] = croppedAsciiString;
-    //             }
-    //         }
-    //     }
-    // }
 
     public static int[,] ConvertToBinary(Image<Rgba32> original, byte threshold = 128)
     {
@@ -56,67 +31,36 @@ public class ImageConverter
         return binaryArray;
     }
 
-    public static string ConvertBinaryArrayToAsciiString(int[,] binaryArray)
+    public static (string asciiString1, string asciiString2) ConvertBinaryArraysToAsciiStrings(List<int[,]> binaryArrays)
     {
-        int rows = binaryArray.GetLength(0);
-        int columns = binaryArray.GetLength(1);
-        
-        StringBuilder asciiString = new StringBuilder();
+        StringBuilder asciiString1 = new StringBuilder();
+        StringBuilder asciiString2 = new StringBuilder();
 
-        for (int i = 0; i < rows; i++)
+        foreach (var binaryArray in binaryArrays)
         {
-            for (int j = 0; j < columns; j++)
+            int rows = binaryArray.GetLength(0);
+            int columns = binaryArray.GetLength(1);
+            // Append the pixels of the first row to asciiString1
+            for (int j = 0; j < 64; j++)
             {
-                asciiString.Append(binaryArray[i, j]);
+                asciiString1.Append(binaryArray[0, j]);
+            }
+
+            // Append the pixels of the second row to asciiString2
+            for (int j = 0; j < 64; j++)
+            {
+                asciiString2.Append(binaryArray[1, j]);
             }
         }
 
-        string binary = asciiString.ToString();
-        // Ensure the binary string has a length that is a multiple of 8
-        int remainder = binary.Length % 8;
-        if (remainder != 0)
-        {
-            binary = binary.PadRight(binary.Length + (8 - remainder), '0');
-        }
+        string asciiStr1 = ConvertBinaryArrayToAsciiString(asciiString1.ToString());
+        string asciiStr2 = ConvertBinaryArrayToAsciiString(asciiString2.ToString());
 
-        StringBuilder finalAsciiString = new StringBuilder();
-        for (int k = 0; k < binary.Length; k += 8)
-        {
-            string byteString = binary.Substring(k, 8);
-            int asciiCode = Convert.ToInt32(byteString, 2);
-            char character = (char)asciiCode;
-            finalAsciiString.Append(character);
-        }
-
-        return finalAsciiString.ToString();
+        return (asciiStr1, asciiStr2);
     }
 
-    // public static Image<Rgba32> CropImageTo1x32(Image<Rgba32> image)
-    // {
-    //     int centerX = image.Width / 2;
-    //     int startY = Math.Max(0, image.Height / 2 - 16);
-    //     return image.Clone(ctx => ctx.Crop(new Rectangle(centerX, startY, 1, 32)));
-    // }
 
-    public static Image<Rgba32> CropImageTo1x32(Image<Rgba32> image)
-    {
-        // Calculate the middle pixel position, ensuring it starts at a multiple of 8
-        int startX = (image.Width / 2) / 8 * 8;
-        int startY = (image.Height / 2) - 16;
-
-        // Ensure startY is a multiple of 8
-        startY = (startY / 8) * 8;
-
-        // Crop the image, ensuring dimensions are within bounds
-        if (startY + 32 > image.Height)
-        {
-            startY = image.Height - 32;
-        }
-
-        return image.Clone(ctx => ctx.Crop(new Rectangle(startX, startY, 1, 32)));
-    }
-
-    public static Image<Rgba32> CropImageTo1x64(Image<Rgba32> image)
+    public static Image<Rgba32> CropImageTo2x64(Image<Rgba32> image)
     {
         // Calculate the middle pixel position, ensuring it starts at a multiple of 8
         int startX = (image.Width / 2) / 8 * 8;
@@ -131,22 +75,8 @@ public class ImageConverter
             startY = image.Height - 64;
         }
 
-        return image.Clone(ctx => ctx.Crop(new Rectangle(startX, startY, 1, 64)));
+        return image.Clone(ctx => ctx.Crop(new Rectangle(startX, startY, 2, 64)));
     }
-
-    // public static Image<Rgba32> CropImageTo1x64(Image<Rgba32> image)
-    // {
-    //     int startingX = (image.Width - 64) / 2;
-    //     int startingY = (image.Height - 1) / 2;
-        
-    //     // Ensure startingX and startingY are multiples of 8
-    //     startingX -= startingX % 8;
-    //     startingY -= startingY % 8;
-        
-    //     var croppedImage = image.Clone(ctx => ctx.Crop(new Rectangle(startingX, startingY, 64, 1)));
-        
-    //     return croppedImage;
-    // }
 
         
     public static void PrintBinaryArray(int[,] binaryArray)
