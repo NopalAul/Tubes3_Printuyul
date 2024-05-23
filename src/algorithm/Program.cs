@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 public class Program
 {
@@ -16,8 +15,8 @@ public class Program
         string folderPath = "../../test"; 
         string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
 
-        Dictionary<string, string> referenceImagesMap = new Dictionary<string, string>();
-        Dictionary<string, string> croppedReferenceImagesMap = new Dictionary<string, string>();
+        Dictionary<string, (string, string)> referenceImagesMap = new Dictionary<string, (string, string)>();
+        Dictionary<string, (string, string)> croppedReferenceImagesMap = new Dictionary<string, (string, string)>();
 
         // Start the timer
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -28,52 +27,52 @@ public class Program
             {
                 int[,] binaryArray = ImageConverter.ConvertToBinary(image);
                 string asciiString = ImageConverter.ConvertBinaryArrayToAsciiString(binaryArray);
-                referenceImagesMap[filePath] = asciiString;
+                referenceImagesMap[filePath] = (asciiString, asciiString);
 
                 using (Image<Rgba32> croppedImage = ImageConverter.CropImageTo1x64(image))
                 {
                     int[,] croppedBinaryArray = ImageConverter.ConvertToBinary(croppedImage);
-                    string croppedAsciiString = ImageConverter.ConvertBinaryArrayToAsciiString(croppedBinaryArray);
-                    croppedReferenceImagesMap[filePath] = croppedAsciiString;
+                    var (asciiString1, asciiString2) = ImageConverter.ConvertBinaryArraysToAsciiStrings(new List<int[,]> { croppedBinaryArray });
+                    croppedReferenceImagesMap[filePath] = (asciiString1, asciiString2);
                 }
             }
         }
 
-        // print len filePaths
+        // Print length of filePaths
         Console.WriteLine($"len filePaths: {filePaths.Length}");
 
-
         // TEST PENCOCOKAN GAMBAR
-        // string dummyAsciiString = "iÿÿÿÿÿÿÿÿdajdoeiaoidjeaisdmasdmsadsaifjiweab";
-        // string patternPath = "../../test/uploaded/225up.BMP";
-        string patternPath = "../../test/225__M_Left_little_finger.BMP";
-        string pattern = "";
+        string patternPath = "../../test/590__M_Left_little_finger.BMP";
+        string pattern1 = "";
+        string pattern2 = "";
 
-        // crop the patternPath image with ImageConverter.CropImageTo1x64 then conver to ascii string
+        // Crop the patternPath image with ImageConverter.CropImageTo1x64 then convert to ascii strings
         using (Image<Rgba32> patternImage = Image.Load<Rgba32>(patternPath))
         {   
             using (Image<Rgba32> croppedPatternImage = ImageConverter.CropImageTo1x64(patternImage))
             {
                 int[,] croppedPatternBinaryArray = ImageConverter.ConvertToBinary(croppedPatternImage);
-                // // print cropped pattern binary array
-                // Console.WriteLine("cropped pattern binary array:");
+                // Print cropped pattern binary array
                 ImageConverter.PrintBinaryArray(croppedPatternBinaryArray);
-                pattern = ImageConverter.ConvertBinaryArrayToAsciiString(croppedPatternBinaryArray);
+                var (asciiString1, asciiString2) = ImageConverter.ConvertBinaryArraysToAsciiStrings(new List<int[,]> { croppedPatternBinaryArray });
+                pattern1 = asciiString1;
+                pattern2 = asciiString2;
             }
         }
         
-        // print pattern
-        Console.WriteLine($"pattern uploaded image: {pattern}");
+        // Print patterns
+        Console.WriteLine($"Pattern 1 uploaded image: {pattern1}");
+        Console.WriteLine($"Pattern 2 uploaded image: {pattern2}");
 
         // Choose algorithm: "KMP" or "BM"
         string algorithmChoice = "KMP";
 
         FingerprintMatcher matcher = new FingerprintMatcher(algorithmChoice);
-        var result = matcher.FindMostSimilarFingerprint(pattern, referenceImagesMap, croppedReferenceImagesMap);   
+        var result = matcher.FindMostSimilarFingerprint(pattern1, pattern2, referenceImagesMap, croppedReferenceImagesMap);   
         string similarImage = result.mostSimilarImage;
         double percentage = result.maxSimilarity;
 
-        // print result
+        // Print result
         Console.WriteLine($"Similar image: {similarImage}");
         Console.WriteLine($"Similarity percentage: {percentage}");
 
@@ -82,6 +81,4 @@ public class Program
         // Print the elapsed time
         Console.WriteLine($"\nTime elapsed: {stopwatch.Elapsed}");
     }
-
-    
 }
