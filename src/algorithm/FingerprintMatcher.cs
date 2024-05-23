@@ -46,8 +46,8 @@ public class FingerprintMatcher
     int distance = 0;
     int len = Math.Min(s1.Length, s2.Length);
 
-    // Print the length of the strings being compared
-    Console.WriteLine($"len: {len}");
+    // // Print the length of the strings being compared
+    // Console.WriteLine($"len: {len}");
 
     for (int i = 0; i < len; i++)
     {
@@ -99,9 +99,9 @@ public class FingerprintMatcher
 
             // Perform Hamming Distance calculation
             int distance = HammingDistance(pattern, croppedReferenceText);
-            // print pattern and croppedReferenceText
-            Console.WriteLine($"pattern: {pattern}");
-            Console.WriteLine($"croppedReferenceText: {croppedReferenceText}");
+            // // print pattern and croppedReferenceText
+            // Console.WriteLine($"pattern: {pattern}");
+            // Console.WriteLine($"croppedReferenceText: {croppedReferenceText}");
             double similarity = 1.0 - (double)distance / pattern.Length;
             similarityPercentages[imagePath] = similarity;
         }

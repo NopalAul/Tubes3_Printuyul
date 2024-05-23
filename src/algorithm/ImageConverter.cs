@@ -123,6 +123,21 @@ public class ImageConverter
         // Crop the image
         return image.Clone(ctx => ctx.Crop(new Rectangle(startX, startY, 1, 32)));
     }
+
+    // public static Image<Rgba32> CropImageTo1x64(Image<Rgba32> image)
+    // {
+    //     int startingX = (image.Width - 64) / 2;
+    //     int startingY = (image.Height - 1) / 2;
+        
+    //     // Ensure startingX and startingY are multiples of 8
+    //     startingX -= startingX % 8;
+    //     startingY -= startingY % 8;
+        
+    //     var croppedImage = image.Clone(ctx => ctx.Crop(new Rectangle(startingX, startingY, 64, 1)));
+        
+    //     return croppedImage;
+    // }
+
         
     public static void PrintBinaryArray(int[,] binaryArray)
     {

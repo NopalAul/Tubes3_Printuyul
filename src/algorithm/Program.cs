@@ -11,101 +11,96 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // INI BUAT TES SMUAMUAMUANYA GAMBAR
+        // // INI BUAT TES SMUAMUAMUANYA GAMBAR
 
-        string folderPath = "../../test"; 
-        string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
-
-        Dictionary<string, string> referenceImagesMap = new Dictionary<string, string>();
-        Dictionary<string, string> croppedReferenceImagesMap = new Dictionary<string, string>();
-
-        // Start the timer
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
-        foreach (string filePath in filePaths)
-        {
-            using (Image<Rgba32> image = Image.Load<Rgba32>(filePath))
-            {
-                int[,] binaryArray = ImageConverter.ConvertToBinary(image);
-                string asciiString = ImageConverter.ConvertBinaryArrayToAsciiString(binaryArray);
-                referenceImagesMap[filePath] = asciiString;
-
-                using (Image<Rgba32> croppedImage = ImageConverter.CropImageTo1x32(image))
-                {
-                    int[,] croppedBinaryArray = ImageConverter.ConvertToBinary(croppedImage);
-                    string croppedAsciiString = ImageConverter.ConvertBinaryArrayToAsciiString(croppedBinaryArray);
-                    croppedReferenceImagesMap[filePath] = croppedAsciiString;
-                }
-            }
-        }
-
-        // Stop the timer
-        stopwatch.Stop();
-
-        // // Example of printing the results
-        // Console.WriteLine("Full Image HashMap:");
-        // foreach (var kvp in referenceImagesMap)
-        // {
-        //     Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
-        // }
-
-        // Console.WriteLine("\nCropped Image HashMap:");
-        // foreach (var kvp in croppedReferenceImagesMap)
-        // {
-        //     Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
-        // }
-
-        // Print the elapsed time
-        Console.WriteLine($"\nTime elapsed: {stopwatch.Elapsed}");
-        // print len filePaths
-        Console.WriteLine($"len filePaths: {filePaths.Length}");
-
-        // // TES 1 GAMBAR AJAA
         // string folderPath = "../../test"; 
         // string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
 
         // Dictionary<string, string> referenceImagesMap = new Dictionary<string, string>();
         // Dictionary<string, string> croppedReferenceImagesMap = new Dictionary<string, string>();
 
-        // if (filePaths.Length > 0)
+        // // Start the timer
+        // Stopwatch stopwatch = Stopwatch.StartNew();
+
+        // foreach (string filePath in filePaths)
         // {
-        //     string filePath = "../../test/225__M_Left_little_finger.BMP";
         //     using (Image<Rgba32> image = Image.Load<Rgba32>(filePath))
         //     {
         //         int[,] binaryArray = ImageConverter.ConvertToBinary(image);
         //         string asciiString = ImageConverter.ConvertBinaryArrayToAsciiString(binaryArray);
         //         referenceImagesMap[filePath] = asciiString;
 
-        //         Console.WriteLine("binary full image:");
-        //         ImageConverter.PrintBinaryArray(binaryArray);
-
         //         using (Image<Rgba32> croppedImage = ImageConverter.CropImageTo1x32(image))
         //         {
         //             int[,] croppedBinaryArray = ImageConverter.ConvertToBinary(croppedImage);
         //             string croppedAsciiString = ImageConverter.ConvertBinaryArrayToAsciiString(croppedBinaryArray);
         //             croppedReferenceImagesMap[filePath] = croppedAsciiString;
-
-        //             Console.WriteLine("binary cropped image:");
-        //             ImageConverter.PrintBinaryArray(croppedBinaryArray);
         //         }
         //     }
-
-        //     Console.WriteLine("full hashmap:");
-        //     foreach (var kvp in referenceImagesMap)
-        //     {
-        //         Console.WriteLine($"k: {kvp.Key}, v: {kvp.Value}");
-        //     }
-
-        //     Console.WriteLine("\ncropped hashmap:");
-        //     foreach (var kvp in croppedReferenceImagesMap)
-        //     {
-        //         Console.WriteLine($"k: {kvp.Key}, v: {kvp.Value}");
-        //     }
         // }
-        // else
-        // {
-        //     Console.WriteLine("Foldernya kosong, sayangku.");
-        // }
+
+        // // // Example of printing the results
+        // // Console.WriteLine("Full Image HashMap:");
+        // // foreach (var kvp in referenceImagesMap)
+        // // {
+        // //     Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+        // // }
+
+        // // Console.WriteLine("\nCropped Image HashMap:");
+        // // foreach (var kvp in croppedReferenceImagesMap)
+        // // {
+        // //     Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+        // // }
+
+        // // print len filePaths
+        // Console.WriteLine($"len filePaths: {filePaths.Length}");
+
+        // TES 1 GAMBAR AJAA
+        string folderPath = "../../test"; 
+        string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
+
+        Dictionary<string, string> referenceImagesMap = new Dictionary<string, string>();
+        Dictionary<string, string> croppedReferenceImagesMap = new Dictionary<string, string>();
+
+        if (filePaths.Length > 0)
+        {
+            string filePath = "../../test/225__M_Left_little_finger.BMP";
+            using (Image<Rgba32> image = Image.Load<Rgba32>(filePath))
+            {
+                int[,] binaryArray = ImageConverter.ConvertToBinary(image);
+                string asciiString = ImageConverter.ConvertBinaryArrayToAsciiString(binaryArray);
+                referenceImagesMap[filePath] = asciiString;
+
+                Console.WriteLine("binary full image:");
+                ImageConverter.PrintBinaryArray(binaryArray);
+
+                using (Image<Rgba32> croppedImage = ImageConverter.CropImageTo1x32(image))
+                {
+                    int[,] croppedBinaryArray = ImageConverter.ConvertToBinary(croppedImage);
+                    string croppedAsciiString = ImageConverter.ConvertBinaryArrayToAsciiString(croppedBinaryArray);
+                    croppedReferenceImagesMap[filePath] = croppedAsciiString;
+
+                    Console.WriteLine("binary cropped image:");
+                    ImageConverter.PrintBinaryArray(croppedBinaryArray);
+                }
+            }
+
+            Console.WriteLine("full hashmap:");
+            foreach (var kvp in referenceImagesMap)
+            {
+                Console.WriteLine($"k: {kvp.Key}, v: {kvp.Value}");
+            }
+
+            Console.WriteLine("\ncropped hashmap:");
+            foreach (var kvp in croppedReferenceImagesMap)
+            {
+                Console.WriteLine($"k: {kvp.Key}, v: {kvp.Value}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Foldernya kosong, sayangku.");
+        }
 
         // TEST PENCOCOKAN GAMBAR
         // string dummyAsciiString = "iÿÿÿÿÿÿÿÿdajdoeiaoidjeaisdmasdmsadsaifjiweab";
@@ -121,6 +116,7 @@ public class Program
             }
         }
         
+        // print pattern
         Console.WriteLine($"pattern uploaded image: {pattern}");
 
         // Simulate reference images with dummy ASCII strings
@@ -139,6 +135,10 @@ public class Program
         string result = matcher.FindMostSimilarFingerprint(pattern, referenceImagesMap, croppedReferenceImagesMap);   
         Console.WriteLine(result);
 
+        // // Stop the timer
+        // stopwatch.Stop();
+        // // Print the elapsed time
+        // Console.WriteLine($"\nTime elapsed: {stopwatch.Elapsed}");
     }
 
     
