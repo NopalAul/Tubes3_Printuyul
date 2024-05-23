@@ -100,28 +100,38 @@ public class ImageConverter
 
     public static Image<Rgba32> CropImageTo1x32(Image<Rgba32> image)
     {
-        // Calculate the total number of pixels in the image
-        int totalPixels = image.Width * image.Height;
+        // Calculate the middle pixel position, ensuring it starts at a multiple of 8
+        int startX = (image.Width / 2) / 8 * 8;
+        int startY = (image.Height / 2) - 16;
 
-        // Find the middle pixel position
-        int middlePixel = totalPixels / 2;
+        // Ensure startY is a multiple of 8
+        startY = (startY / 8) * 8;
 
-        // Calculate the starting pixel position, ensuring it is a multiple of 8
-        int startPixel = middlePixel - 16;
-        startPixel = (startPixel / 8) * 8;
-
-        // Calculate the corresponding x and y coordinates from the starting pixel position
-        int startX = startPixel % image.Width;
-        int startY = startPixel / image.Width;
-
-        // Ensure that we do not go out of bounds
+        // Crop the image, ensuring dimensions are within bounds
         if (startY + 32 > image.Height)
         {
             startY = image.Height - 32;
         }
 
-        // Crop the image
         return image.Clone(ctx => ctx.Crop(new Rectangle(startX, startY, 1, 32)));
+    }
+
+    public static Image<Rgba32> CropImageTo1x64(Image<Rgba32> image)
+    {
+        // Calculate the middle pixel position, ensuring it starts at a multiple of 8
+        int startX = (image.Width / 2) / 8 * 8;
+        int startY = (image.Height / 2) - 32;
+
+        // Ensure startY is a multiple of 8
+        startY = (startY / 8) * 8;
+
+        // Crop the image, ensuring dimensions are within bounds
+        if (startY + 64 > image.Height)
+        {
+            startY = image.Height - 64;
+        }
+
+        return image.Clone(ctx => ctx.Crop(new Rectangle(startX, startY, 1, 64)));
     }
 
     // public static Image<Rgba32> CropImageTo1x64(Image<Rgba32> image)

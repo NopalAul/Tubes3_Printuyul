@@ -92,24 +92,30 @@ public class FingerprintMatcher
         }
 
         // If no exact matches are found, use Hamming Distance on the cropped images map
-        foreach (var kvp in croppedReferenceImagesMap)
+        if (matches.Count == 0)
         {
-            string imagePath = kvp.Key;
-            string croppedReferenceText = kvp.Value;
+            Console.WriteLine("No exact matches found. Using Hamming Distance on cropped images.");
 
-            // Perform Hamming Distance calculation
-            int distance = HammingDistance(pattern, croppedReferenceText);
-            // // print pattern and croppedReferenceText
-            // Console.WriteLine($"pattern: {pattern}");
-            // Console.WriteLine($"croppedReferenceText: {croppedReferenceText}");
-            double similarity = 1.0 - (double)distance / pattern.Length;
-            similarityPercentages[imagePath] = similarity;
+            // Iterate through the cropped reference images map
+            foreach (var kvp in croppedReferenceImagesMap)
+            {
+                string imagePath = kvp.Key;
+                string croppedReferenceText = kvp.Value;
+
+                // Perform Hamming Distance calculation
+                int distance = HammingDistance(pattern, croppedReferenceText);
+                // // print pattern and croppedReferenceText
+                // Console.WriteLine($"pattern: {pattern}");
+                // Console.WriteLine($"croppedReferenceText: {croppedReferenceText}");
+                double similarity = 1.0 - (double)distance / pattern.Length;
+                similarityPercentages[imagePath] = similarity;
+            }
         }
 
         return (matches, similarityPercentages);
     }
 
-    public string FindMostSimilarFingerprint(
+    public (string mostSimilarImage, double maxSimilarity) FindMostSimilarFingerprint(
         string pattern, 
         Dictionary<string, string> referenceImagesMap,
         Dictionary<string, string> croppedReferenceImagesMap)
@@ -123,7 +129,8 @@ public class FingerprintMatcher
             Console.WriteLine("Exact matches found:");
 
             foreach (int match in matches)
-            {
+            {   
+                // print index found
                 Console.WriteLine($"Pattern found at index: {match}");
             }
             // Find the image(s) where the exact match(es) were found
@@ -131,12 +138,14 @@ public class FingerprintMatcher
             foreach (var kvp in similarityPercentages)
             {
                 if (kvp.Value == 1.0)
-                {
+                {   
                     exactMatchImage = kvp.Key;
                     break;
                 }
             }
-            return exactMatchImage;
+
+            double maxSimilarity = 100;
+            return (exactMatchImage, maxSimilarity);
         }
         else
         {
@@ -155,8 +164,9 @@ public class FingerprintMatcher
                 }
             }
 
+            maxSimilarity *= 100;
             Console.WriteLine($"No exact match found. Most similar fingerprint is in image: {Path.GetFileName(mostSimilarImage)} with similarity {maxSimilarity * 100}%");
-            return mostSimilarImage;
+            return (mostSimilarImage, maxSimilarity);
         }
     }
 }
