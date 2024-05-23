@@ -91,13 +91,39 @@ public class ImageConverter
         return finalAsciiString.ToString();
     }
 
+    // public static Image<Rgba32> CropImageTo1x32(Image<Rgba32> image)
+    // {
+    //     int centerX = image.Width / 2;
+    //     int startY = Math.Max(0, image.Height / 2 - 16);
+    //     return image.Clone(ctx => ctx.Crop(new Rectangle(centerX, startY, 1, 32)));
+    // }
+
     public static Image<Rgba32> CropImageTo1x32(Image<Rgba32> image)
     {
-        int centerX = image.Width / 2;
-        int startY = Math.Max(0, image.Height / 2 - 16);
-        return image.Clone(ctx => ctx.Crop(new Rectangle(centerX, startY, 1, 32)));
+        // Calculate the total number of pixels in the image
+        int totalPixels = image.Width * image.Height;
+
+        // Find the middle pixel position
+        int middlePixel = totalPixels / 2;
+
+        // Calculate the starting pixel position, ensuring it is a multiple of 8
+        int startPixel = middlePixel - 16;
+        startPixel = (startPixel / 8) * 8;
+
+        // Calculate the corresponding x and y coordinates from the starting pixel position
+        int startX = startPixel % image.Width;
+        int startY = startPixel / image.Width;
+
+        // Ensure that we do not go out of bounds
+        if (startY + 32 > image.Height)
+        {
+            startY = image.Height - 32;
+        }
+
+        // Crop the image
+        return image.Clone(ctx => ctx.Crop(new Rectangle(startX, startY, 1, 32)));
     }
-    
+        
     public static void PrintBinaryArray(int[,] binaryArray)
     {
         int rows = binaryArray.GetLength(0);
