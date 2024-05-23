@@ -42,7 +42,8 @@ public class Program
         Console.WriteLine($"len filePaths: {filePaths.Length}");
 
         // TEST PENCOCOKAN GAMBAR
-        string patternPath = "../../test/590__M_Left_little_finger.BMP";
+        // string patternPath = "../../test/uploaded/225sm.BMP";
+        string patternPath = "../../test/225__M_Left_little_finger.BMP";
         string pattern1 = "";
         string pattern2 = "";
 
