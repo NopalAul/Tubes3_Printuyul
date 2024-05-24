@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,6 +13,8 @@ namespace newjeans_avalonia
 {
     public partial class SecondWindow : Window
     {
+        private static readonly HttpClient client = new HttpClient();
+
         public SecondWindow(Bitmap? initialImage = null)
         {
             InitializeComponent();
@@ -57,9 +60,12 @@ namespace newjeans_avalonia
         {
             var selectedAlgorithm = (MethodDropdown.SelectedItem as ComboBoxItem)?.Content.ToString();
             Console.WriteLine($"Selected algorithm: {selectedAlgorithm}");
-            if (selectedAlgorithm == "Boyer Moore") {
+            if (selectedAlgorithm == "Boyer Moore")
+            {
                 selectedAlgorithm = "BM";
-            } else if (selectedAlgorithm == "Knuth Morris Pratt") {
+            }
+            else if (selectedAlgorithm == "Knuth Morris Pratt")
+            {
                 selectedAlgorithm = "KMP";
             }
             Console.WriteLine($"Mapped algorithm: {selectedAlgorithm}");
@@ -120,18 +126,37 @@ namespace newjeans_avalonia
 
         private async Task FetchAndDisplayImageAsync(string imageUrl)
         {
-            using (var client = new HttpClient())
+            try
             {
-                var response = await client.GetAsync(imageUrl);
+                var response = await client.GetAsync(imageUrl).ConfigureAwait(false);
+
                 if (response.IsSuccessStatusCode)
                 {
-                    var imageBytes = await response.Content.ReadAsByteArrayAsync();
-                    using (var stream = new MemoryStream(imageBytes))
+                    var imageBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+
+                    // image load and setting source
+                    await Task.Run(async () =>
                     {
-                        var bitmap = new Bitmap(stream);
-                        ResultsImage.Source = bitmap;
-                    }
+                        using (var stream = new MemoryStream(imageBytes))
+                        {
+                            var bitmap = new Bitmap(stream);
+
+                            // main thread update ui
+                            await Dispatcher.UIThread.InvokeAsync(() =>
+                            {
+                                ResultsImage.Source = bitmap;
+                            });
+                        }
+                    });
                 }
+                else
+                {
+                    await ShowMessageAsync("Error fetching image from the server.");
+                }
+            }
+            catch (Exception ex)
+            {
+                await ShowMessageAsync($"Exception occurred while fetching the image: {ex.Message}");
             }
         }
 
