@@ -56,14 +56,13 @@ namespace newjeans_avalonia
         private async void OnSearchButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             var selectedAlgorithm = (MethodDropdown.SelectedItem as ComboBoxItem)?.Content.ToString();
-            // print selected algorithm
-            Console.WriteLine($"selected algorithm: {selectedAlgorithm}");
+            Console.WriteLine($"Selected algorithm: {selectedAlgorithm}");
             if (selectedAlgorithm == "Boyer Moore") {
                 selectedAlgorithm = "BM";
             } else if (selectedAlgorithm == "Knuth Morris Pratt") {
                 selectedAlgorithm = "KMP";
             }
-            Console.WriteLine($"selected algorithm: {selectedAlgorithm}");
+            Console.WriteLine($"Mapped algorithm: {selectedAlgorithm}");
 
             if (DisplayImage.Source is Bitmap currentBitmap && !string.IsNullOrEmpty(selectedAlgorithm))
             {
@@ -77,35 +76,40 @@ namespace newjeans_avalonia
 
         private async Task ProcessImageAsync(Bitmap image, string algorithm)
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri("http://localhost:5000/");
-                var content = new MultipartFormDataContent();
-
-                var memoryStream = new MemoryStream();
-                image.Save(memoryStream);
-                memoryStream.Position = 0;
-
-                var imageContent = new StreamContent(memoryStream);
-                imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-                content.Add(imageContent, "image", "uploadedImage.png");
-                content.Add(new StringContent(algorithm), "algorithm");
-
-                var response = await client.PostAsync("api/fingerprint/process", content);
-                if (response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    var result = await response.Content.ReadAsAsync<dynamic>();
-                    string similarImage = result.similarImage;
-                    double percentage = result.percentage;
+                    client.BaseAddress = new Uri("http://localhost:5141/");
+                    var content = new MultipartFormDataContent();
 
-                    // Handle the result (e.g., display it in the UI)
-                    await ShowMessageAsync($"Similar Image: {similarImage}, Similarity: {percentage}%");
+                    var memoryStream = new MemoryStream();
+                    image.Save(memoryStream);
+                    memoryStream.Position = 0;
+
+                    var imageContent = new StreamContent(memoryStream);
+                    imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+                    content.Add(imageContent, "image", "uploadedImage.png");
+                    content.Add(new StringContent(algorithm), "algorithm");
+
+                    var response = await client.PostAsync("api/fingerprint/process", content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var result = await response.Content.ReadAsAsync<dynamic>();
+                        string similarImage = result.similarImage;
+                        double percentage = result.percentage;
+
+                        await ShowMessageAsync($"Similar Image: {similarImage}, Similarity: {percentage}%");
+                    }
+                    else
+                    {
+                        await ShowMessageAsync("Error processing image.");
+                    }
                 }
-                else
-                {
-                    // Handle error response
-                    await ShowMessageAsync("Error processing image.");
-                }
+            }
+            catch (Exception ex)
+            {
+                await ShowMessageAsync($"Exception occurred: {ex.Message}");
             }
         }
 

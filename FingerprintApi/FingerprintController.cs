@@ -17,7 +17,7 @@ namespace FingerprintApi.Controllers
 
         public FingerprintController()
         {
-            string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "test");
+            string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "../test");
             string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
 
             foreach (string filePath in filePaths)
@@ -46,32 +46,46 @@ namespace FingerprintApi.Controllers
 
             string tempFilePath = Path.GetTempFileName();
 
-            using (var stream = System.IO.File.Create(tempFilePath))
+            try
             {
-                await image.CopyToAsync(stream);
-            }
-
-            string pattern;
-
-            using (Image<Rgba32> uploadedImage = Image.Load<Rgba32>(tempFilePath))
-            {
-                int[,] patternBinaryArray = ImageConverter.ConvertToBinary(uploadedImage);
-                ImageConverter.PrintBinaryArray(patternBinaryArray);
-
-                using (Image<Rgba32> croppedPatternImage = ImageConverter.CropImageTo1x64(uploadedImage))
+                using (var stream = System.IO.File.Create(tempFilePath))
                 {
-                    int[,] croppedPatternBinaryArray = ImageConverter.ConvertToBinary(croppedPatternImage);
-                    ImageConverter.PrintBinaryArray(croppedPatternBinaryArray);
-                    pattern = ImageConverter.ConvertBinaryArrayToAsciiString(croppedPatternBinaryArray);
+                    await image.CopyToAsync(stream);
+                }
+
+                string pattern;
+
+                using (Image<Rgba32> uploadedImage = Image.Load<Rgba32>(tempFilePath))
+                {
+                    int[,] patternBinaryArray = ImageConverter.ConvertToBinary(uploadedImage);
+                    ImageConverter.PrintBinaryArray(patternBinaryArray);
+
+                    using (Image<Rgba32> croppedPatternImage = ImageConverter.CropImageTo1x64(uploadedImage))
+                    {
+                        int[,] croppedPatternBinaryArray = ImageConverter.ConvertToBinary(croppedPatternImage);
+                        ImageConverter.PrintBinaryArray(croppedPatternBinaryArray);
+                        pattern = ImageConverter.ConvertBinaryArrayToAsciiString(croppedPatternBinaryArray);
+                    }
+                }
+
+                FingerprintMatcher matcher = new FingerprintMatcher(algorithm);
+                var result = matcher.FindMostSimilarFingerprint(pattern, referenceImagesMap, croppedReferenceImagesMap);
+                string similarImage = result.mostSimilarImage;
+                double percentage = result.maxSimilarity;
+
+                return Ok(new { similarImage, percentage });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+            finally
+            {
+                if (System.IO.File.Exists(tempFilePath))
+                {
+                    System.IO.File.Delete(tempFilePath);
                 }
             }
-
-            FingerprintMatcher matcher = new FingerprintMatcher(algorithm);
-            var result = matcher.FindMostSimilarFingerprint(pattern, referenceImagesMap, croppedReferenceImagesMap);
-            string similarImage = result.mostSimilarImage;
-            double percentage = result.maxSimilarity;
-
-            return Ok(new { similarImage, percentage });
         }
     }
 }
