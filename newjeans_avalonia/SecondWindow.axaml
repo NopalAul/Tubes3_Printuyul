@@ -54,6 +54,9 @@
                 Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
             <Image Source="avares://newjeans_avalonia/assets/details.png"/>
         </Button>
+
+        <Image x:Name="ResultsImage" Height="130" Width="300" HorizontalAlignment="Left" Margin="690,-200,0,0" />
+
     </Panel>
 
 </Window>

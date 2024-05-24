@@ -73,7 +73,8 @@ namespace FingerprintApi.Controllers
                 string similarImage = result.mostSimilarImage;
                 double percentage = result.maxSimilarity;
 
-                return Ok(new { similarImage, percentage });
+                return Ok(new { similarImage = Path.GetFileName(similarImage), percentage });
+
             }
             catch (Exception ex)
             {
@@ -86,6 +87,21 @@ namespace FingerprintApi.Controllers
                     System.IO.File.Delete(tempFilePath);
                 }
             }
+        }
+
+        [HttpGet("image/{filename}")]
+        public IActionResult GetImage(string filename)
+        {
+            string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "../test");
+            string filePath = Path.Combine(folderPath, filename);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            byte[] imageBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(imageBytes, "image/bmp");
         }
     }
 }

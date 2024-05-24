@@ -99,6 +99,11 @@ namespace newjeans_avalonia
                         string similarImage = result.similarImage;
                         double percentage = result.percentage;
 
+                        string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
+                        // print imageUrl
+                        Console.WriteLine($"imageUrl: {imageUrl}");
+                        await FetchAndDisplayImageAsync(imageUrl);
+
                         await ShowMessageAsync($"Similar Image: {similarImage}, Similarity: {percentage}%");
                     }
                     else
@@ -110,6 +115,23 @@ namespace newjeans_avalonia
             catch (Exception ex)
             {
                 await ShowMessageAsync($"Exception occurred: {ex.Message}");
+            }
+        }
+
+        private async Task FetchAndDisplayImageAsync(string imageUrl)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(imageUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    var imageBytes = await response.Content.ReadAsByteArrayAsync();
+                    using (var stream = new MemoryStream(imageBytes))
+                    {
+                        var bitmap = new Bitmap(stream);
+                        ResultsImage.Source = bitmap;
+                    }
+                }
             }
         }
 
