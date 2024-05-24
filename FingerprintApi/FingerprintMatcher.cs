@@ -119,6 +119,7 @@ public class FingerprintMatcher
                 if (kvp.Value == 1.0)
                 {   
                     exactMatchImage = kvp.Key;
+                    Console.WriteLine($"Exact match found in image: {exactMatchImage}");
                     break;
                 }
             }
