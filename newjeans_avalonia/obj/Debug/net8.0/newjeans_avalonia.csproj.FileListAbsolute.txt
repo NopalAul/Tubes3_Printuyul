@@ -378,3 +378,11 @@ C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Print
 C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/newjeans_avalonia/obj/Debug/net8.0/newjeans.9A1C83A1.Up2Date
 C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/newjeans_avalonia/obj/Debug/net8.0/newjeans_avalonia.genruntimeconfig.cache
 C:/Users/Naufal/Documents/003. TAHUN KEDUA/SEMESTER 4/STIMA/TUBES_3/Tubes3_Printuyul/newjeans_avalonia/obj/Debug/net8.0/ref/newjeans_avalonia.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/ColorTextBlock.Avalonia.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/DialogHost.Avalonia.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/Markdown.Avalonia.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/MsBox.Avalonia.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/System.Net.Http.Formatting.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
+/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/bin/Debug/net8.0/System.Reactive.dll
