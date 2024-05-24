@@ -57,6 +57,10 @@
 
         <Image x:Name="ResultsImage" Height="130" Width="300" HorizontalAlignment="Left" Margin="690,-200,0,0" />
 
+        <TextBlock x:Name="SimilarityTextBlock" Margin="1030,457,0,0" Width="300" Height="40"
+                   VerticalAlignment="Top" Foreground="#3533BD" FontSize="16" FontFamily="{StaticResource FairfaxFont}"/>
+        <TextBlock x:Name="ExecutionTimeTextBlock" Margin="1030,487,0,0" Width="300" Height="40"
+                   VerticalAlignment="Top" Foreground="#3533BD" FontSize="16" FontFamily="{StaticResource FairfaxFont}"/>
     </Panel>
 
 </Window>

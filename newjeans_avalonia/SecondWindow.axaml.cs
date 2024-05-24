@@ -59,7 +59,7 @@ namespace newjeans_avalonia
         private async void OnSearchButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             var selectedAlgorithm = (MethodDropdown.SelectedItem as ComboBoxItem)?.Content.ToString();
-            Console.WriteLine($"Selected algorithm: {selectedAlgorithm}");
+            Console.WriteLine($"dropdown: {selectedAlgorithm}");
             if (selectedAlgorithm == "Boyer Moore")
             {
                 selectedAlgorithm = "BM";
@@ -68,7 +68,7 @@ namespace newjeans_avalonia
             {
                 selectedAlgorithm = "KMP";
             }
-            Console.WriteLine($"Mapped algorithm: {selectedAlgorithm}");
+            Console.WriteLine($"{selectedAlgorithm}");
 
             if (DisplayImage.Source is Bitmap currentBitmap && !string.IsNullOrEmpty(selectedAlgorithm))
             {
@@ -102,15 +102,16 @@ namespace newjeans_avalonia
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsAsync<dynamic>();
-                        string similarImage = result.similarImage;
-                        double percentage = result.percentage;
+                        string similarImage = result.similarImage ?? "N/A";
+                        double percentage = result.percentage ?? 0;
+                        long executionTime = result.executionTime ?? 0; // Execution time in milliseconds
 
                         string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
-                        // print imageUrl
-                        Console.WriteLine($"imageUrl: {imageUrl}");
                         await FetchAndDisplayImageAsync(imageUrl);
 
-                        await ShowMessageAsync($"Similar Image: {similarImage}, Similarity: {percentage}%");
+                        // Update the TextBlock elements
+                        SimilarityTextBlock.Text = $"{percentage} %";
+                        ExecutionTimeTextBlock.Text = $"{executionTime} ms";
                     }
                     else
                     {

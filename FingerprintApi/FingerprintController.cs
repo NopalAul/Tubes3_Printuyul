@@ -45,6 +45,7 @@ namespace FingerprintApi.Controllers
                 return BadRequest("No image uploaded.");
 
             string tempFilePath = Path.GetTempFileName();
+            var stopwatch = new System.Diagnostics.Stopwatch();
 
             try
             {
@@ -54,6 +55,8 @@ namespace FingerprintApi.Controllers
                 }
 
                 string pattern;
+
+                stopwatch.Start();
 
                 using (Image<Rgba32> uploadedImage = Image.Load<Rgba32>(tempFilePath))
                 {
@@ -73,7 +76,11 @@ namespace FingerprintApi.Controllers
                 string similarImage = result.mostSimilarImage;
                 double percentage = result.maxSimilarity;
 
-                return Ok(new { similarImage = Path.GetFileName(similarImage), percentage });
+                stopwatch.Stop();
+
+                var executionTime = stopwatch.ElapsedMilliseconds;
+
+                return Ok(new { similarImage = Path.GetFileName(similarImage), percentage, executionTime });
 
             }
             catch (Exception ex)
