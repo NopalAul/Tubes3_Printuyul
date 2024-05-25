@@ -1,0 +1,59 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="newjeans_avalonia.ThirdWindow"
+        Title="Printuyul"
+        Width="990" Height="646" CanResize="False"
+        WindowStartupLocation="CenterOwner">
+    <Window.Background>
+        <ImageBrush Source="avares://newjeans_avalonia/assets/home3.png"/>
+    </Window.Background>
+
+    <Window.Styles>
+        <!-- Custom Button Style -->
+        <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </Window.Styles>
+    
+    <Panel>
+        <Button x:Name="BackButton" Width="107" Height="51" Margin="215,440,0,0"
+                Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+            <Image Source="avares://newjeans_avalonia/assets/back.png"/>
+        </Button>
+
+        <Button x:Name="RetryButton" Width="107" Height="51" Margin="668,440,0,0"
+                Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+            <Image Source="avares://newjeans_avalonia/assets/retry.png"/>
+        </Button>
+
+        <!-- Text placeholders -->
+        <TextBlock x:Name="NamaText" FontSize="24" FontFamily="{StaticResource FairfaxFont}" Margin="436,126,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="NikText" FontSize="24" FontFamily="{StaticResource FairfaxFont}" Margin="436,198,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="TempatLahirText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,222,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="TanggalLahirText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,246,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="JenisKelaminText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,270,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="GolonganDarahText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,294,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="AlamatText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,318,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="AgamaText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,342,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="StatusPerkawinanText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,366,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="PekerjaanText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,390,0,0" Foreground="#3533BD"/>
+        <TextBlock x:Name="KewarganegaraanText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,414,0,0" Foreground="#3533BD"/>
+    </Panel>
+
+</Window>
