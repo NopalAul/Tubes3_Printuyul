@@ -48,9 +48,19 @@ namespace newjeans_avalonia
 
         private void OnRetryButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
+            ResetAppState();
             SecondWindow secondWindow = new SecondWindow(_appState);
             secondWindow.Show();
             this.Close();
+        }
+
+        private void ResetAppState()
+        {
+            _appState.CurrentImage = null;
+            _appState.ResultImage = null;
+            _appState.SelectedAlgorithm = string.Empty;
+            _appState.Similarity = string.Empty;
+            _appState.ExecutionTime = string.Empty;
         }
     }
 }
