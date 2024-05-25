@@ -1,6 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
-using Avalonia.Markup.Xaml;
+using System;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Avalonia.Threading;
 
 namespace newjeans_avalonia
 {
@@ -13,30 +17,64 @@ namespace newjeans_avalonia
             InitializeComponent();
             _appState = appState;
 
-            // if (_appState.CurrentImage != null)
-            // {
-            //     //
-            // }
-
-            BindDummyData();
+            LoadingImage.IsVisible = false;
+            FetchAndDisplayBiodata();
             
             this.FindControl<Button>("BackButton")!.Click += OnBackButtonClick;
             this.FindControl<Button>("RetryButton")!.Click += OnRetryButtonClick;
         }
 
-        private void BindDummyData()
+        private async void FetchAndDisplayBiodata()
         {
-            NamaText.Text = "John Doe";
-            NikText.Text = "1234567890";
-            TempatLahirText.Text = "Jakarta";
-            TanggalLahirText.Text = "01 Januari 2000";
-            JenisKelaminText.Text = "Laki-laki";
-            GolonganDarahText.Text = "A+";
-            AlamatText.Text = "Jl. Raya No. 123";
-            AgamaText.Text = "Islam";
-            StatusPerkawinanText.Text = "Belum Menikah";
-            PekerjaanText.Text = "Developer";
-            KewarganegaraanText.Text = "WNI";
+            try
+            {
+                LoadingImage.IsVisible = true;
+                if (_appState.ResultImage != null)
+                {
+                    string filename = _appState.ResultImageFilename;
+                    Console.WriteLine(filename);
+                    string apiUrl = $"http://localhost:5141/api/fingerprint/biodata/{filename}";
+
+                    using (var client = new HttpClient())
+                    {
+                        var response = await client.GetAsync(apiUrl);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var biodata = await response.Content.ReadAsAsync<KTPData>();
+
+                            NamaText.Text = biodata.name;
+                            NikText.Text = biodata.NIK;
+                            TempatLahirText.Text = biodata.birth_place;
+                            TanggalLahirText.Text = biodata.birth_date;
+                            JenisKelaminText.Text = biodata.gender;
+                            GolonganDarahText.Text = biodata.blood_type;
+                            AlamatText.Text = biodata.address;
+                            AgamaText.Text = biodata.religion;
+                            StatusPerkawinanText.Text = biodata.marriage_status;
+                            PekerjaanText.Text = biodata.job;
+                            KewarganegaraanText.Text = biodata.citizenhip;
+                        }
+                        else
+                        {
+                            await ShowMessageAsync("No matching biodata found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await ShowMessageAsync($"Exception occurred while fetching biodata: {ex.Message}");
+            } 
+            finally
+            {
+                LoadingImage.IsVisible = false;
+            }
+        }
+
+        private async Task ShowMessageAsync(string message)
+        {
+            var messageBox = new MessageBox { Message = message };
+            await messageBox.ShowDialog(this);
         }
 
         private void OnBackButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

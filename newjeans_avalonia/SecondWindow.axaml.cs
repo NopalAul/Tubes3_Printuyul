@@ -135,6 +135,7 @@ namespace newjeans_avalonia
                         Console.WriteLine(imageUrl);
                         await FetchAndDisplayImageAsync(imageUrl);
 
+                        _appState.ResultImageFilename = similarImage;
                         _appState.Similarity = $"{percentage} %";
                         _appState.ExecutionTime = $"{executionTime} ms";
                         SimilarityTextBlock.Text = _appState.Similarity;
@@ -192,7 +193,7 @@ namespace newjeans_avalonia
                             {
                                 ResultsImage.Source = bitmap;
                                 _appState.ResultImage = bitmap;
-                                LoadingImage.IsVisible = false; // Hide loading image
+                                LoadingImage.IsVisible = false;
                             });
                         }
                     });

@@ -54,6 +54,10 @@
         <TextBlock x:Name="StatusPerkawinanText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,366,0,0" Foreground="#3533BD"/>
         <TextBlock x:Name="PekerjaanText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,390,0,0" Foreground="#3533BD"/>
         <TextBlock x:Name="KewarganegaraanText" FontFamily="{StaticResource FairfaxFont}" FontSize="24" Margin="436,414,0,0" Foreground="#3533BD"/>
+
+        <Image x:Name="LoadingImage" Source="avares://newjeans_avalonia/assets/loading.png" 
+           Width="990" Height="646" HorizontalAlignment="Center" VerticalAlignment="Center"
+           IsVisible="true"/>
     </Panel>
 
 </Window>

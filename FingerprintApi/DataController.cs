@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 
 class Controller{
-    SqliteConnection sql_conn;
+    public SqliteConnection sql_conn;
+
+    public SqliteConnection SqlConn => sql_conn;
     public Controller(string database_path){
 
         string input = $"Data Source={database_path};";
