@@ -15,10 +15,17 @@ namespace FingerprintApi.Controllers
         private static readonly Dictionary<string, string> referenceImagesMap = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> croppedReferenceImagesMap = new Dictionary<string, string>();
 
+        
+
         public FingerprintController()
-        {
+        {   
+            Controller data = new Controller("MainData.db");
+            data.TraverseSidikJari();
+            data.TraverseBiodata();
+            
             string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "../test");
-            string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
+            // string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
+            string[] filePaths = 
 
             foreach (string filePath in filePaths)
             {
