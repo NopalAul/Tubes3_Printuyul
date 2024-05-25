@@ -1,16 +1,8 @@
 public class FingerprintData {
-    public int id;
     public string name;
     public string path;
 
     public FingerprintData(string name, string path) {
-        id = -1;
-        this.name = name;
-        this.path = path;
-    }
-
-    public FingerprintData(int id, string name, string path) {
-        this.id = id;
         this.name = name;
         this.path = path;
     }

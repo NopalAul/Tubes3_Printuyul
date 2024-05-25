@@ -24,8 +24,8 @@ namespace FingerprintApi.Controllers
             data.TraverseBiodata();
             
             string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "../test");
-            // string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
-            string[] filePaths = 
+            string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
+            // string[] filePaths = 
 
             foreach (string filePath in filePaths)
             {
