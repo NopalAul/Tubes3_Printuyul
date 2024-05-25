@@ -6,14 +6,18 @@ namespace newjeans_avalonia
 {
     public partial class ThirdWindow : Window
     {
-        private Bitmap? currentImage;
+        private AppState _appState;
 
-        public ThirdWindow(Bitmap? image = null)
+        public ThirdWindow(AppState appState)
         {
             InitializeComponent();
-            currentImage = image;
+            _appState = appState;
 
-            // Bind dummy data to text placeholders
+            // if (_appState.CurrentImage != null)
+            // {
+            //     //
+            // }
+
             BindDummyData();
             
             this.FindControl<Button>("BackButton")!.Click += OnBackButtonClick;
@@ -22,7 +26,6 @@ namespace newjeans_avalonia
 
         private void BindDummyData()
         {
-            // Create and bind dummy data to text placeholders
             NamaText.Text = "John Doe";
             NikText.Text = "1234567890";
             TempatLahirText.Text = "Jakarta";
@@ -38,14 +41,14 @@ namespace newjeans_avalonia
 
         private void OnBackButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            SecondWindow secondWindow = new SecondWindow(currentImage);
+            SecondWindow secondWindow = new SecondWindow(_appState);
             secondWindow.Show();
             this.Close();
         }
 
         private void OnRetryButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            SecondWindow secondWindow = new SecondWindow();
+            SecondWindow secondWindow = new SecondWindow(_appState);
             secondWindow.Show();
             this.Close();
         }

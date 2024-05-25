@@ -13,18 +13,34 @@ namespace newjeans_avalonia
 {
     public partial class SecondWindow : Window
     {
+        private AppState _appState;
         private static readonly HttpClient client = new HttpClient();
 
-        public SecondWindow(Bitmap? initialImage = null)
+        public SecondWindow(AppState appState)
         {
             InitializeComponent();
+            _appState = appState;
             InsertButton.Click += InsertButton_Click;
             SearchButton.Click += OnSearchButtonClick;
             this.FindControl<Button>("NavigateButton2")!.Click += OnNavigateButtonClick2;
 
-            if (initialImage != null)
+            if (_appState.CurrentImage != null)
             {
-                DisplayImage.Source = initialImage;
+                DisplayImage.Source = _appState.CurrentImage;
+            }
+
+            if (!string.IsNullOrEmpty(_appState.SelectedAlgorithm))
+            {
+                MethodDropdown.SelectedItem = MethodDropdown.Items.OfType<ComboBoxItem>()
+                    .FirstOrDefault(item => item.Content!.ToString() == _appState.SelectedAlgorithm);
+            }
+
+            SimilarityTextBlock.Text = _appState.Similarity;
+            ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
+
+            if (_appState.ResultImage != null)
+            {
+                ResultsImage.Source = _appState.ResultImage;
             }
         }
 
@@ -45,13 +61,13 @@ namespace newjeans_avalonia
             {
                 var bitmap = new Bitmap(result.First());
                 DisplayImage.Source = bitmap;
+                _appState.CurrentImage = bitmap; // Save the image in the state
             }
         }
 
         private void OnNavigateButtonClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            Bitmap? currentBitmap = DisplayImage.Source as Bitmap;
-            ThirdWindow thirdWindow = new ThirdWindow(currentBitmap);
+            ThirdWindow thirdWindow = new ThirdWindow(_appState);
             thirdWindow.Show();
             this.Close(); // Optionally close the current window
         }
@@ -59,7 +75,8 @@ namespace newjeans_avalonia
         private async void OnSearchButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             var selectedAlgorithm = (MethodDropdown.SelectedItem as ComboBoxItem)?.Content.ToString();
-            Console.WriteLine($"dropdown: {selectedAlgorithm}");
+            _appState.SelectedAlgorithm = selectedAlgorithm;
+
             if (selectedAlgorithm == "Boyer Moore")
             {
                 selectedAlgorithm = "BM";
@@ -68,7 +85,6 @@ namespace newjeans_avalonia
             {
                 selectedAlgorithm = "KMP";
             }
-            Console.WriteLine($"{selectedAlgorithm}");
 
             if (DisplayImage.Source is Bitmap currentBitmap && !string.IsNullOrEmpty(selectedAlgorithm))
             {
@@ -112,8 +128,10 @@ namespace newjeans_avalonia
                         string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
                         await FetchAndDisplayImageAsync(imageUrl);
 
-                        SimilarityTextBlock.Text = $"{percentage} %";
-                        ExecutionTimeTextBlock.Text = $"{executionTime} ms";
+                        _appState.Similarity = $"{percentage} %";
+                        _appState.ExecutionTime = $"{executionTime} ms";
+                        SimilarityTextBlock.Text = _appState.Similarity;
+                        ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
 
                         if (!exactMatchFound)
                         {
@@ -138,7 +156,6 @@ namespace newjeans_avalonia
             await messageBox.ShowDialog(this);
         }
 
-
         private async Task FetchAndDisplayImageAsync(string imageUrl)
         {
             try
@@ -160,6 +177,7 @@ namespace newjeans_avalonia
                             await Dispatcher.UIThread.InvokeAsync(() =>
                             {
                                 ResultsImage.Source = bitmap;
+                                _appState.ResultImage = bitmap;
                                 LoadingImage.IsVisible = false; // Hide loading image
                             });
                         }
@@ -177,18 +195,5 @@ namespace newjeans_avalonia
                 LoadingImage.IsVisible = false;
             }
         }
-
-        // kalau sempet nanti message box nya bikin manual (jangan pakai default jele hehe)
-        // private async Task ShowMessageAsync(string message)
-        // {
-        //     var dialog = new Window
-        //     {
-        //         Title = "Message",
-        //         Content = new TextBlock { Text = message },
-        //         Width = 400,
-        //         Height = 200
-        //     };
-        //     await dialog.ShowDialog(this);
-        // }
     }
 }

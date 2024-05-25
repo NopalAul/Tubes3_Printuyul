@@ -2,20 +2,24 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace newjeans_avalonia;
-
-public partial class MainWindow : Window
+namespace newjeans_avalonia
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
-        this.FindControl<Button>("NavigateButton")!.Click += OnNavigateButtonClick;
-    }
+        private AppState _appState;
 
-    private void OnNavigateButtonClick(object? sender, RoutedEventArgs e)
-    {
-        SecondWindow secondWindow = new SecondWindow();
-        secondWindow.Show();
-        this.Close(); // Optionally close the current window
+        public MainWindow()
+        {
+            InitializeComponent();
+            _appState = new AppState(); // Initialize the AppState
+            this.FindControl<Button>("NavigateButton")!.Click += OnNavigateButtonClick;
+        }
+
+        private void OnNavigateButtonClick(object? sender, RoutedEventArgs e)
+        {
+            SecondWindow secondWindow = new SecondWindow(_appState);
+            secondWindow.Show();
+            this.Close(); // Optionally close the current window
+        }
     }
 }
