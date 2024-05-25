@@ -65,8 +65,14 @@ namespace newjeans_avalonia
             }
         }
 
-        private void OnNavigateButtonClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private async void OnNavigateButtonClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
+            if (_appState.ResultImage == null)
+            {
+                await ShowMessageAsync("Please perform a search before seeing details.");
+                return;
+            }
+            
             ThirdWindow thirdWindow = new ThirdWindow(_appState);
             thirdWindow.Show();
             this.Close(); // Optionally close the current window
@@ -135,7 +141,14 @@ namespace newjeans_avalonia
 
                         if (!exactMatchFound)
                         {
-                            await ShowMessageAsync("No exact match found. The search will continue using Hamming Distance.");
+                            if (algorithm == "BM")
+                            {
+                                await ShowMessageAsync("No exact match found using BM. The search is done using Hamming Distance.");
+                            }
+                            else if (algorithm == "KMP")
+                            {
+                                await ShowMessageAsync("No exact match found using KNP. The search is done using Hamming Distance.");
+                            }
                         }
                     }
                     else

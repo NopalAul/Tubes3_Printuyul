@@ -6,7 +6,7 @@
         d:DesignWidth="990"
         d:DesignHeight="646"
         x:Class="newjeans_avalonia.MainWindow"
-        Title="newjeans_avalonia"
+        Title="Printuyul"
         CanResize="False"
         Width="990"
         Height="646"

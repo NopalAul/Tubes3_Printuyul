@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         x:Class="newjeans_avalonia.SecondWindow"
-        Title="Second Window"
+        Title="Printuyul"
         Width="990" Height="646" CanResize="False"
         WindowStartupLocation="CenterOwner">
     <Window.Background>
