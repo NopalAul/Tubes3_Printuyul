@@ -132,6 +132,7 @@ namespace newjeans_avalonia
                         bool exactMatchFound = result.exactMatchFound ?? false; // Handle null case
 
                         string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
+                        Console.WriteLine(imageUrl);
                         await FetchAndDisplayImageAsync(imageUrl);
 
                         _appState.Similarity = $"{percentage} %";
@@ -147,7 +148,7 @@ namespace newjeans_avalonia
                             }
                             else if (algorithm == "KMP")
                             {
-                                await ShowMessageAsync("No exact match found using KNP. The search is done using Hamming Distance.");
+                                await ShowMessageAsync("No exact match found using KMP. The search is done using Hamming Distance.");
                             }
                         }
                     }
