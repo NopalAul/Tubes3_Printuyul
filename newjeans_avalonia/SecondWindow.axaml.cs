@@ -72,7 +72,9 @@ namespace newjeans_avalonia
 
             if (DisplayImage.Source is Bitmap currentBitmap && !string.IsNullOrEmpty(selectedAlgorithm))
             {
+                LoadingImage.IsVisible = true;
                 await ProcessImageAsync(currentBitmap, selectedAlgorithm);
+                LoadingImage.IsVisible = false;
             }
             else
             {
@@ -109,7 +111,6 @@ namespace newjeans_avalonia
                         string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
                         await FetchAndDisplayImageAsync(imageUrl);
 
-                        // Update the TextBlock elements
                         SimilarityTextBlock.Text = $"{percentage} %";
                         ExecutionTimeTextBlock.Text = $"{executionTime} ms";
                     }
@@ -146,6 +147,7 @@ namespace newjeans_avalonia
                             await Dispatcher.UIThread.InvokeAsync(() =>
                             {
                                 ResultsImage.Source = bitmap;
+                                LoadingImage.IsVisible = false; // Hide loading image
                             });
                         }
                     });
@@ -153,14 +155,17 @@ namespace newjeans_avalonia
                 else
                 {
                     await ShowMessageAsync("Error fetching image from the server.");
+                    LoadingImage.IsVisible = false;
                 }
             }
             catch (Exception ex)
             {
                 await ShowMessageAsync($"Exception occurred while fetching the image: {ex.Message}");
+                LoadingImage.IsVisible = false;
             }
         }
 
+        // kalau sempet nanti message box nya bikin manual (jangan pakai default jele hehe)
         private async Task ShowMessageAsync(string message)
         {
             var dialog = new Window

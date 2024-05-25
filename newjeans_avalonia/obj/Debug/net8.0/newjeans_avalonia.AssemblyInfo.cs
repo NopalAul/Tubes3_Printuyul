@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("newjeans_avalonia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b465c01761d180ff2d5ee167bfd49cad886406c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ccb53bd47a7fffe50896a0a390e376ae02579860")]
 [assembly: System.Reflection.AssemblyProductAttribute("newjeans_avalonia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("newjeans_avalonia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
