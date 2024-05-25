@@ -18,17 +18,14 @@ namespace FingerprintApi.Controllers
         
 
         public FingerprintController()
-        {   
+        {
             Controller data = new Controller("MainData.db");
-            data.TraverseSidikJari();
-            data.TraverseBiodata();
-            
-            string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "../test");
-            string[] filePaths = Directory.GetFiles(folderPath, "*.BMP");
-            // string[] filePaths = 
+            var fingerDataList = data.TraverseSidikJari();
 
-            foreach (string filePath in filePaths)
+            foreach (var fingerData in fingerDataList)
             {
+                string filePath = fingerData.getPath(); // Assuming getPath method returns the file path
+
                 using (Image<Rgba32> image = Image.Load<Rgba32>(filePath))
                 {
                     int[,] binaryArray = ImageConverter.ConvertToBinary(image);

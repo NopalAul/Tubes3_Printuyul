@@ -89,8 +89,9 @@ class Controller{
         }
     }
 
-    public void TraverseSidikJari()
+    public List<FingerprintData> TraverseSidikJari()
     {
+        List<FingerprintData> fingerDataList = new List<FingerprintData>();
         string query = "SELECT berkas_citra, nama FROM sidik_jari;";
         using (var command = new SqliteCommand(query, sql_conn))
         {
@@ -100,10 +101,11 @@ class Controller{
                 {
                     string berkasCitra = reader["berkas_citra"].ToString();
                     string nama = reader["nama"].ToString();
-                    Console.WriteLine($"Berkas Citra: {berkasCitra}, Nama: {nama}");
+                    fingerDataList.Add(new FingerprintData(nama, berkasCitra));
                 }
             }
         }
+        return fingerDataList;
     }
 
     public void TraverseBiodata()
