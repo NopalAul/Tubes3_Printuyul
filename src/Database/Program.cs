@@ -1,5 +1,5 @@
 ﻿using DataController;
 using System;
-Controller data = new Controller();
+Controller data = new Controller("DataController/MainData.db");
 
-Controller.CreateConnection();
+data.setup();

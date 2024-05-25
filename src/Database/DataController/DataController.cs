@@ -1,33 +1,49 @@
 using System;
+using System.Data.SqlClient;
 using System.Data.SQLite;
+using System.Runtime.InteropServices;
 
 namespace DataController{
-    // public class DataController{
-    //     public string databaseDir;
-
-    //     public 
-    //     public DataController(string input) {
-    //         databaseDir = input;
-    //     }
-    // }
-    class Controller
-    {
-        public static SQLiteConnection CreateConnection()
+    class Controller{
+        SQLiteConnection sql_conn;
+        public Controller(string database_path)
         {
-            SQLiteConnection sqlite_conn;
-            // Create a new database connection:
-            sqlite_conn = new SQLiteConnection("Data Source=MainData.db;Version=3;New=True;Compress=True;");
-            // Open the connection:
+ 
+            string input = $"Data Source={database_path};Vesion=3;";
+            sql_conn = new SQLiteConnection(input);
+
             try
             {
-                sqlite_conn.Open();
+                sql_conn.Open();
                 Console.WriteLine("Connection worked!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Connection didn't work!");
             }
-            return sqlite_conn;
+        }
+
+        public List<FingerprintData> getFingerData(){
+            List<FingerprintData> fingers = new List<FingerprintData>();
+
+            string query = @"
+                SELECT * FROM sidik_jari;
+            ";
+
+
+
+            return fingers;
+        }
+
+        public void setup(){
+            SQLiteCommand command;
+            command = sql_conn.CreateCommand();
+
+            command.CommandText = @"
+                INSERT INTO sidik_jari VALUES('zaki','nigger');
+            ";
+
+            command.ExecuteNonQuery();
         }
     }
 }
