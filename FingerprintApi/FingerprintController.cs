@@ -75,12 +75,13 @@ namespace FingerprintApi.Controllers
                 var result = matcher.FindMostSimilarFingerprint(pattern, referenceImagesMap, croppedReferenceImagesMap);
                 string similarImage = result.mostSimilarImage;
                 double percentage = result.maxSimilarity;
+                bool exactMatchFound = result.exactMatchFound;
 
                 stopwatch.Stop();
 
                 var executionTime = stopwatch.ElapsedMilliseconds;
 
-                return Ok(new { similarImage = Path.GetFileName(similarImage), percentage, executionTime });
+                return Ok(new { similarImage = Path.GetFileName(similarImage), percentage, executionTime, exactMatchFound });
 
             }
             catch (Exception ex)

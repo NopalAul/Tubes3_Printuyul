@@ -94,7 +94,7 @@ public class FingerprintMatcher
         return (matches, similarityPercentages);
     }
 
-    public (string mostSimilarImage, double maxSimilarity) FindMostSimilarFingerprint(
+    public (string mostSimilarImage, double maxSimilarity, bool exactMatchFound) FindMostSimilarFingerprint(
         string pattern, 
         Dictionary<string, string> referenceImagesMap,
         Dictionary<string, string> croppedReferenceImagesMap)
@@ -109,36 +109,30 @@ public class FingerprintMatcher
 
             foreach (int match in matches)
             {   
-                // print index found
                 Console.WriteLine($"Pattern found at index: {match}");
             }
-            // Find the image(s) where the exact match(es) were found
             string exactMatchImage = null;
             foreach (var kvp in similarityPercentages)
             {
                 if (kvp.Value == 1.0)
                 {   
                     exactMatchImage = kvp.Key;
-                    Console.WriteLine($"Exact match found in image: {exactMatchImage}");
                     break;
                 }
             }
 
             double maxSimilarity = 100;
-            return (exactMatchImage, maxSimilarity);
+            return (exactMatchImage ?? string.Empty, maxSimilarity, true);
         }
         else
         {
             double maxSimilarity = 0;
             string mostSimilarImage = null;
 
-            Console.WriteLine(similarityPercentages.Count);
             foreach (var kvp in similarityPercentages)
             {
-                // Console.WriteLine($"kvp.Value is {kvp.Value}");
                 if (kvp.Value >= maxSimilarity)
                 {
-                    // Console.WriteLine(kvp.Value);
                     maxSimilarity = kvp.Value;
                     mostSimilarImage = kvp.Key;
                 }
@@ -146,7 +140,7 @@ public class FingerprintMatcher
 
             maxSimilarity *= 100;
             Console.WriteLine($"No exact match found. Most similar fingerprint is in image: {Path.GetFileName(mostSimilarImage)} with similarity {maxSimilarity * 100}%");
-            return (mostSimilarImage, maxSimilarity);
+            return (mostSimilarImage ?? string.Empty, maxSimilarity, false);
         }
     }
 }

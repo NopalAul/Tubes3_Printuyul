@@ -107,12 +107,18 @@ namespace newjeans_avalonia
                         string similarImage = result.similarImage ?? "N/A";
                         double percentage = result.percentage ?? 0;
                         long executionTime = result.executionTime ?? 0; // Execution time in milliseconds
+                        bool exactMatchFound = result.exactMatchFound ?? false; // Handle null case
 
                         string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
                         await FetchAndDisplayImageAsync(imageUrl);
 
                         SimilarityTextBlock.Text = $"{percentage} %";
                         ExecutionTimeTextBlock.Text = $"{executionTime} ms";
+
+                        if (!exactMatchFound)
+                        {
+                            await ShowMessageAsync("No exact match found. The search will continue using Hamming Distance.");
+                        }
                     }
                     else
                     {
@@ -125,6 +131,13 @@ namespace newjeans_avalonia
                 await ShowMessageAsync($"Exception occurred: {ex.Message}");
             }
         }
+
+        private async Task ShowMessageAsync(string message)
+        {
+            var messageBox = new MessageBox { Message = message };
+            await messageBox.ShowDialog(this);
+        }
+
 
         private async Task FetchAndDisplayImageAsync(string imageUrl)
         {
@@ -166,16 +179,16 @@ namespace newjeans_avalonia
         }
 
         // kalau sempet nanti message box nya bikin manual (jangan pakai default jele hehe)
-        private async Task ShowMessageAsync(string message)
-        {
-            var dialog = new Window
-            {
-                Title = "Message",
-                Content = new TextBlock { Text = message },
-                Width = 400,
-                Height = 200
-            };
-            await dialog.ShowDialog(this);
-        }
+        // private async Task ShowMessageAsync(string message)
+        // {
+        //     var dialog = new Window
+        //     {
+        //         Title = "Message",
+        //         Content = new TextBlock { Text = message },
+        //         Width = 400,
+        //         Height = 200
+        //     };
+        //     await dialog.ShowDialog(this);
+        // }
     }
 }

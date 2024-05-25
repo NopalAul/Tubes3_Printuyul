@@ -31,6 +31,8 @@
     <AvaloniaResource Include="assets/back.png" />
     <AvaloniaResource Include="assets/retry.png" />
     <AvaloniaResource Include="assets/loading.png" />
+    <AvaloniaResource Include="assets/notification_box.png" />
+    <AvaloniaResource Include="assets/ok.png" />
     <AvaloniaResource Include="assets/fonts/Fairfax.ttf" />
   </ItemGroup>
   

@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="newjeans_avalonia.MessageBox"
+        Title="Notification"
+        Width="300" Height="148.7" WindowStartupLocation="CenterOwner">
+
+    <Window.Background>
+        <ImageBrush Source="avares://newjeans_avalonia/assets/notification_box.png"/>
+    </Window.Background>
+
+    <Window.Styles>
+        <!-- Custom Button Style -->
+        <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </Window.Styles>
+
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock x:Name="MessageTextBlock" TextWrapping="Wrap" Text="Default Message" HorizontalAlignment="Center" 
+            Margin="10"
+            Foreground="#FFFFFF" FontSize="16" FontFamily="{StaticResource FairfaxFont}" />
+        <Button x:Name="OkButton" Width="80" Height="30" Margin="10" HorizontalAlignment="Center">
+            <Image Source="avares://newjeans_avalonia/assets/ok.png"/>
+        </Button>
+    </StackPanel>
+</Window>
