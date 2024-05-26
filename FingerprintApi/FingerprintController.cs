@@ -177,7 +177,8 @@ namespace FingerprintApi.Controllers
                                 Console.WriteLine("Match found: " + biodataName);
                                 var ktpData = new KTPData(
                                     reader["NIK"].ToString(),
-                                    reader["nama"].ToString(),
+                                    // reader["nama"].ToString(),
+                                    ownerName,
                                     reader["tempat_lahir"].ToString(),
                                     reader["tanggal_lahir"].ToString(),
                                     reader["jenis_kelamin"].ToString(),
