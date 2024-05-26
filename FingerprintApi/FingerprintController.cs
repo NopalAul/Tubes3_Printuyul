@@ -18,8 +18,6 @@ namespace FingerprintApi.Controllers
         private static readonly Dictionary<string, string> referenceImagesMap = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> croppedReferenceImagesMap = new Dictionary<string, string>();
 
-        
-
         public FingerprintController()
         {
             Controller data = new Controller("MainData.db");
@@ -68,12 +66,10 @@ namespace FingerprintApi.Controllers
                 using (Image<Rgba32> uploadedImage = Image.Load<Rgba32>(tempFilePath))
                 {
                     int[,] patternBinaryArray = ImageConverter.ConvertToBinary(uploadedImage);
-                    // ImageConverter.PrintBinaryArray(patternBinaryArray);
 
                     using (Image<Rgba32> croppedPatternImage = ImageConverter.CropImageTo1x64(uploadedImage))
                     {
                         int[,] croppedPatternBinaryArray = ImageConverter.ConvertToBinary(croppedPatternImage);
-                        // ImageConverter.PrintBinaryArray(croppedPatternBinaryArray);
                         pattern = ImageConverter.ConvertBinaryArrayToAsciiString(croppedPatternBinaryArray);
                     }
                 }
@@ -139,8 +135,15 @@ namespace FingerprintApi.Controllers
                     {
                         if (reader.Read())
                         {
-                            ownerName = reader["nama"].ToString();
-                            Console.WriteLine("Owner name: " + ownerName);
+                            if (!reader.IsDBNull(reader.GetOrdinal("nama")))
+                            {
+                                ownerName = reader["nama"].ToString();
+                                Console.WriteLine("Owner name: " + ownerName);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nama column is null for the current row.");
+                            }
                         }
                         else
                         {
@@ -168,7 +171,6 @@ namespace FingerprintApi.Controllers
                         while (reader.Read())
                         {
                             string biodataName = reader["nama"].ToString();
-                            // Console.WriteLine("Checking biodata name: " + biodataName);
 
                             if (System.Text.RegularExpressions.Regex.IsMatch(biodataName, namePattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                             {

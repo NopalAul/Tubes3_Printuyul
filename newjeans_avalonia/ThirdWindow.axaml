@@ -57,7 +57,7 @@
 
         <Image x:Name="LoadingImage" Source="avares://newjeans_avalonia/assets/loading.png" 
            Width="990" Height="646" HorizontalAlignment="Center" VerticalAlignment="Center"
-           IsVisible="true"/>
+           IsVisible="false"/>
     </Panel>
 
 </Window>

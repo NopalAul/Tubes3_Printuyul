@@ -17,58 +17,69 @@ namespace newjeans_avalonia
             InitializeComponent();
             _appState = appState;
 
-            LoadingImage.IsVisible = false;
+            // LoadingImage.IsVisible = false;
             FetchAndDisplayBiodata();
-            
+
             this.FindControl<Button>("BackButton")!.Click += OnBackButtonClick;
             this.FindControl<Button>("RetryButton")!.Click += OnRetryButtonClick;
         }
 
         private async void FetchAndDisplayBiodata()
         {
-            try
+            // try
+            // {
+            //     LoadingImage.IsVisible = true;
+            if (_appState.ResultImage != null)
             {
-                LoadingImage.IsVisible = true;
-                if (_appState.ResultImage != null)
-                {
-                    string filename = _appState.ResultImageFilename;
-                    Console.WriteLine(filename);
-                    string apiUrl = $"http://localhost:5141/api/fingerprint/biodata/{filename}";
+                // string filename = _appState.ResultImageFilename;
+                // Console.WriteLine(filename);
+                // string apiUrl = $"http://localhost:5141/api/fingerprint/biodata/{filename}";
 
-                    using (var client = new HttpClient())
-                    {
-                        var response = await client.GetAsync(apiUrl);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var biodata = await response.Content.ReadAsAsync<KTPData>();
+                // using (var client = new HttpClient())
+                // {
+                //     var response = await client.GetAsync(apiUrl);
+                //     if (response.IsSuccessStatusCode)
+                //     {
+                //         var biodata = await response.Content.ReadAsAsync<KTPData>();
 
-                            NamaText.Text = biodata.name;
-                            NikText.Text = biodata.NIK;
-                            TempatLahirText.Text = biodata.birth_place;
-                            TanggalLahirText.Text = biodata.birth_date;
-                            JenisKelaminText.Text = biodata.gender;
-                            GolonganDarahText.Text = biodata.blood_type;
-                            AlamatText.Text = biodata.address;
-                            AgamaText.Text = biodata.religion;
-                            StatusPerkawinanText.Text = biodata.marriage_status;
-                            PekerjaanText.Text = biodata.job;
-                            KewarganegaraanText.Text = biodata.citizenhip;
-                        }
-                        else
-                        {
-                            await ShowMessageAsync("No matching biodata found.");
-                        }
-                    }
-                }
+                NamaText.Text = _appState.ktpData.name;
+                NikText.Text = _appState.ktpData.NIK;
+                TempatLahirText.Text = _appState.ktpData.birth_place;
+                TanggalLahirText.Text = _appState.ktpData.birth_date;
+                JenisKelaminText.Text = _appState.ktpData.gender;
+                GolonganDarahText.Text = _appState.ktpData.blood_type;
+                AlamatText.Text = _appState.ktpData.address;
+                AgamaText.Text = _appState.ktpData.religion;
+                StatusPerkawinanText.Text = _appState.ktpData.marriage_status;
+                PekerjaanText.Text = _appState.ktpData.job;
+                KewarganegaraanText.Text = _appState.ktpData.citizenhip;
+
+                // NamaText.Text = biodata.name;
+                // NikText.Text = biodata.NIK;
+                // TempatLahirText.Text = biodata.birth_place;
+                // TanggalLahirText.Text = biodata.birth_date;
+                // JenisKelaminText.Text = biodata.gender;
+                // GolonganDarahText.Text = biodata.blood_type;
+                // AlamatText.Text = biodata.address;
+                // AgamaText.Text = biodata.religion;
+                // StatusPerkawinanText.Text = biodata.marriage_status;
+                // PekerjaanText.Text = biodata.job;
+                // KewarganegaraanText.Text = biodata.citizenhip;
+                //     }
+                //     else
+                //     {
+                //         await ShowMessageAsync("No matching biodata found.");
+                //     }
+                // }
             }
-            catch (Exception ex)
-            {
-                await ShowMessageAsync($"Exception occurred while fetching biodata: {ex.Message}");
-            } 
-            finally
-            {
-                LoadingImage.IsVisible = false;
-            }
+            // catch (Exception ex)
+            // {
+            //     await ShowMessageAsync($"Exception occurred while fetching biodata: {ex.Message}");
+            // } 
+            // finally
+            // {
+            //     LoadingImage.IsVisible = false;
+            // }
         }
 
         private async Task ShowMessageAsync(string message)

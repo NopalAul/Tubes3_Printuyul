@@ -72,7 +72,7 @@ namespace newjeans_avalonia
                 await ShowMessageAsync("Please perform a search before seeing details.");
                 return;
             }
-            
+
             ThirdWindow thirdWindow = new ThirdWindow(_appState);
             thirdWindow.Show();
             this.Close(); // Optionally close the current window
@@ -108,55 +108,76 @@ namespace newjeans_avalonia
         {
             try
             {
-                using (var client = new HttpClient())
+                client.BaseAddress = new Uri("http://localhost:5141/");
+                var content = new MultipartFormDataContent();
+
+                var memoryStream = new MemoryStream();
+                image.Save(memoryStream);
+                memoryStream.Position = 0;
+
+                var imageContent = new StreamContent(memoryStream);
+                imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+                content.Add(imageContent, "image", "uploadedImage.png");
+                content.Add(new StringContent(algorithm), "algorithm");
+
+                var response = await client.PostAsync("api/fingerprint/process", content);
+                if (response.IsSuccessStatusCode)
                 {
-                    client.BaseAddress = new Uri("http://localhost:5141/");
-                    var content = new MultipartFormDataContent();
+                    var result = await response.Content.ReadAsAsync<dynamic>();
+                    string similarImage = result.similarImage ?? "N/A";
+                    double percentage = result.percentage ?? 0;
+                    long executionTime = result.executionTime ?? 0; // Execution time in milliseconds
+                    bool exactMatchFound = result.exactMatchFound ?? false; // Handle null case
 
-                    var memoryStream = new MemoryStream();
-                    image.Save(memoryStream);
-                    memoryStream.Position = 0;
+                    string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
+                    Console.WriteLine(imageUrl);
+                    await FetchAndDisplayImageAsync(imageUrl);
 
-                    var imageContent = new StreamContent(memoryStream);
-                    imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-                    content.Add(imageContent, "image", "uploadedImage.png");
-                    content.Add(new StringContent(algorithm), "algorithm");
+                    _appState.ResultImageFilename = similarImage;
+                    _appState.Similarity = $"{percentage} %";
+                    _appState.ExecutionTime = $"{executionTime} ms";
+                    SimilarityTextBlock.Text = _appState.Similarity;
+                    ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
 
-                    var response = await client.PostAsync("api/fingerprint/process", content);
-                    if (response.IsSuccessStatusCode)
+                    string apiUrl = $"http://localhost:5141/api/fingerprint/biodata/{similarImage}";
+
+                    var biodataResponse = await client.GetAsync(apiUrl);
+                    if (biodataResponse.IsSuccessStatusCode)
                     {
-                        var result = await response.Content.ReadAsAsync<dynamic>();
-                        string similarImage = result.similarImage ?? "N/A";
-                        double percentage = result.percentage ?? 0;
-                        long executionTime = result.executionTime ?? 0; // Execution time in milliseconds
-                        bool exactMatchFound = result.exactMatchFound ?? false; // Handle null case
+                        var biodata = await biodataResponse.Content.ReadAsAsync<KTPData>();
 
-                        string imageUrl = $"http://localhost:5141/api/fingerprint/image/{similarImage}";
-                        Console.WriteLine(imageUrl);
-                        await FetchAndDisplayImageAsync(imageUrl);
-
-                        _appState.ResultImageFilename = similarImage;
-                        _appState.Similarity = $"{percentage} %";
-                        _appState.ExecutionTime = $"{executionTime} ms";
-                        SimilarityTextBlock.Text = _appState.Similarity;
-                        ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
-
-                        if (!exactMatchFound)
-                        {
-                            if (algorithm == "BM")
-                            {
-                                await ShowMessageAsync("No exact match found using BM. The search is done using Hamming Distance.");
-                            }
-                            else if (algorithm == "KMP")
-                            {
-                                await ShowMessageAsync("No exact match found using KMP. The search is done using Hamming Distance.");
-                            }
-                        }
+                        _appState.ktpData.name = biodata.name;
+                        _appState.ktpData.NIK = biodata.NIK;
+                        _appState.ktpData.birth_place = biodata.birth_place;
+                        _appState.ktpData.birth_date = biodata.birth_date;
+                        _appState.ktpData.gender = biodata.gender;
+                        _appState.ktpData.blood_type = biodata.blood_type;
+                        _appState.ktpData.address = biodata.address;
+                        _appState.ktpData.religion = biodata.religion;
+                        _appState.ktpData.marriage_status = biodata.marriage_status;
+                        _appState.ktpData.job = biodata.job;
+                        _appState.ktpData.citizenhip = biodata.citizenhip;
                     }
                     else
                     {
-                        await ShowMessageAsync("Error processing image.");
+                        await ShowMessageAsync("No matching biodata found.");
                     }
+
+                    if (!exactMatchFound)
+                    {
+                        if (algorithm == "BM")
+                        {
+                            await ShowMessageAsync("No exact match found using BM. The search is done using Hamming Distance.");
+                        }
+                        else if (algorithm == "KMP")
+                        {
+                            await ShowMessageAsync("No exact match found using KMP. The search is done using Hamming Distance.");
+                        }
+                    }
+                }
+                else
+                {
+                    await ShowMessageAsync("Error processing image.");
                 }
             }
             catch (Exception ex)
@@ -164,6 +185,7 @@ namespace newjeans_avalonia
                 await ShowMessageAsync($"Exception occurred: {ex.Message}");
             }
         }
+
 
         private async Task ShowMessageAsync(string message)
         {
