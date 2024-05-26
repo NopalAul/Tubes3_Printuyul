@@ -215,7 +215,7 @@ namespace newjeans_avalonia
                             {
                                 ResultsImage.Source = bitmap;
                                 _appState.ResultImage = bitmap;
-                                LoadingImage.IsVisible = false;
+                                // LoadingImage.IsVisible = false;
                             });
                         }
                     });
