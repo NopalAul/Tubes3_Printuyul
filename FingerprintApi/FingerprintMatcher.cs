@@ -45,6 +45,33 @@ public class FingerprintMatcher
         return distance;
     }
 
+    private int Levenshtein(string str1, string str2, int m, int n)
+    {
+        // str1 is empty
+        if (m == 0)
+        {
+            return n;
+        }
+        // str2 is empty
+        if (n == 0)
+        {
+            return m;
+        }
+
+        if (str1[m - 1] == str2[n - 1])
+        {
+            return  Levenshtein(str1, str2, m - 1, n - 1);
+        }
+
+        return 1 + Math.Min(
+                        Levenshtein(str1, str2, m, n - 1),    // insert
+                    Math.Min(
+                            Levenshtein(str1, str2, m - 1, n),    // remove
+                            Levenshtein(str1, str2, m - 1, n - 1) // replace
+                    )
+                );
+    }
+
 
     public (List<int> matches, Dictionary<string, double> similarityPercentages) Search(
         string pattern, 
@@ -82,6 +109,7 @@ public class FingerprintMatcher
                 string croppedReferenceText = kvp.Value;
 
                 // Perform Hamming Distance calculation
+                // int distance = Levenshtein(pattern, croppedReferenceText, pattern.Length, croppedReferenceText.Length);
                 int distance = HammingDistance(pattern, croppedReferenceText);
                 // // print pattern and croppedReferenceText
                 // Console.WriteLine($"pattern: {pattern}");
