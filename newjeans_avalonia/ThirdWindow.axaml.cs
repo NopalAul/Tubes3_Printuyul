@@ -107,9 +107,13 @@ namespace newjeans_avalonia
         {
             _appState.CurrentImage = null;
             _appState.ResultImage = null;
-            _appState.SelectedAlgorithm = string.Empty;
+            _appState.SelectedAlgorithm = null;
             _appState.Similarity = string.Empty;
             _appState.ExecutionTime = string.Empty;
+            _appState.ResultImageFilename = null;
+            _appState.ktpData = new KTPData("default_NIK", "default_name", "default_birth_place", "default_birth_date",
+                                            "default_gender", "default_blood_type", "default_address", "default_religion",
+                                            "default_marriage_status", "default_job", "default_citizenship");
         }
     }
 }
