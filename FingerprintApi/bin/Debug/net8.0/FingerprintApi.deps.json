@@ -9,7 +9,7 @@
       "FingerprintApi/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "8.0.4",
-          "Microsoft.Data.Sqlite": "8.0.5",
+          "Microsoft.Data.Sqlite": "8.0.6",
           "Microsoft.EntityFrameworkCore.Sqlite": "8.0.5",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.1.8",
           "SixLabors.ImageSharp": "3.1.4",
@@ -51,20 +51,20 @@
         }
       },
       "Microsoft.CSharp/4.7.0": {},
-      "Microsoft.Data.Sqlite/8.0.5": {
+      "Microsoft.Data.Sqlite/8.0.6": {
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "8.0.5",
+          "Microsoft.Data.Sqlite.Core": "8.0.6",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.1.8"
         }
       },
-      "Microsoft.Data.Sqlite.Core/8.0.5": {
+      "Microsoft.Data.Sqlite.Core/8.0.6": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.1.8"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Data.Sqlite.dll": {
-            "assemblyVersion": "8.0.5.0",
-            "fileVersion": "8.0.524.21704"
+            "assemblyVersion": "8.0.6.0",
+            "fileVersion": "8.0.624.26904"
           }
         }
       },
@@ -111,7 +111,7 @@
       },
       "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.5": {
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "8.0.5",
+          "Microsoft.Data.Sqlite.Core": "8.0.6",
           "Microsoft.EntityFrameworkCore.Relational": "8.0.5",
           "Microsoft.Extensions.DependencyModel": "8.0.0"
         },
@@ -652,19 +652,19 @@
       "path": "microsoft.csharp/4.7.0",
       "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
-    "Microsoft.Data.Sqlite/8.0.5": {
+    "Microsoft.Data.Sqlite/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BLHC0wuBzKDkkucMsD+ijT0SbwZLXk8dEY1iyR4hm6vqP/pz8+qPXOsiWEmEQS1Za6C9biFvtsAKUwlAVfGFtg==",
-      "path": "microsoft.data.sqlite/8.0.5",
-      "hashPath": "microsoft.data.sqlite.8.0.5.nupkg.sha512"
+      "sha512": "sha512-YVzVtU1IoGsTiMAe0BNV9ssKyrUm6lBQJP6w2N4W29YrBYYtyCmTFmrNGjxaJtJXVqttu0sYkPxmStj/OnMFdg==",
+      "path": "microsoft.data.sqlite/8.0.6",
+      "hashPath": "microsoft.data.sqlite.8.0.6.nupkg.sha512"
     },
-    "Microsoft.Data.Sqlite.Core/8.0.5": {
+    "Microsoft.Data.Sqlite.Core/8.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JMGBNGTPsrLM14j5gDG2r5/I1nbbQd1ZdgeUnF7uca8RHYin6wZpFtQNYYqOMUpSxJak55trXE9B8/X2X+pOXw==",
-      "path": "microsoft.data.sqlite.core/8.0.5",
-      "hashPath": "microsoft.data.sqlite.core.8.0.5.nupkg.sha512"
+      "sha512": "sha512-umhZ0ZF2RI81rGFTnYmCxI+Euj4Aqe/6Y4+8CxN9OVJNGDNIqB5laJ3wxQTU8zXCcm2k9F7FL+/6RVoOT4z1Fw==",
+      "path": "microsoft.data.sqlite.core/8.0.6",
+      "hashPath": "microsoft.data.sqlite.core.8.0.6.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore/8.0.5": {
       "type": "package",

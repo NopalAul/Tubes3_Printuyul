@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "VCtXtLEmQequLnhfjblDkJ6/v3aEAwAS56KtZy68XwddovvZov/SYmWmRtXV50/mtSJoGx8QnekTp5EZn5211Q==",
+  "dgSpecHash": "R3P5cPgXvcWgE0hPZdAdIXDMX/b4C7W70ksQ9S4ShUYfM/abrh8153+YXCQl2K0SxioFlk29kRadsuhwPdYKYQ==",
   "success": true,
   "projectFilePath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/FingerprintApi/FingerprintApi.csproj",
   "expectedPackageFiles": [
     "/Users/denisefeliciatiowanni/.nuget/packages/entityframework/6.4.4/entityframework.6.4.4.nupkg.sha512",
     "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.aspnetcore.openapi/8.0.4/microsoft.aspnetcore.openapi.8.0.4.nupkg.sha512",
     "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
-    "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.data.sqlite/8.0.5/microsoft.data.sqlite.8.0.5.nupkg.sha512",
-    "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.data.sqlite.core/8.0.5/microsoft.data.sqlite.core.8.0.5.nupkg.sha512",
+    "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.data.sqlite/8.0.6/microsoft.data.sqlite.8.0.6.nupkg.sha512",
+    "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.data.sqlite.core/8.0.6/microsoft.data.sqlite.core.8.0.6.nupkg.sha512",
     "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.entityframeworkcore/8.0.5/microsoft.entityframeworkcore.8.0.5.nupkg.sha512",
     "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.5/microsoft.entityframeworkcore.abstractions.8.0.5.nupkg.sha512",
     "/Users/denisefeliciatiowanni/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.5/microsoft.entityframeworkcore.analyzers.8.0.5.nupkg.sha512",

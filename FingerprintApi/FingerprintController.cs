@@ -20,12 +20,13 @@ namespace FingerprintApi.Controllers
 
         public FingerprintController()
         {
-            Controller data = new Controller("MainData.db");
+            // Controller data = new Controller("MainData.db");
+            Controller data = new Controller("EncryptedData.db");
             var fingerDataList = data.TraverseSidikJari();
 
             foreach (var fingerData in fingerDataList)
             {
-                string filePath = fingerData.getPath(); // Assuming getPath method returns the file path
+                string filePath = fingerData.getPath();
 
                 using (Image<Rgba32> image = Image.Load<Rgba32>(filePath))
                 {
@@ -121,10 +122,11 @@ namespace FingerprintApi.Controllers
             try
             {
                 Console.WriteLine("masuk");
-                string imagePath = "../test/" + filename;
+                string imagePath = ("../test/" + filename);
                 Console.WriteLine("Image path: " + imagePath);
 
-                Controller dataController = new Controller("MainData.db");
+                // Controller dataController = new Controller("MainData.db");
+                Controller dataController = new Controller("EncryptedData.db");
                 string query = "SELECT nama FROM sidik_jari WHERE berkas_citra = @imagePath;";
                 string ownerName = "";
                 
@@ -170,24 +172,26 @@ namespace FingerprintApi.Controllers
                     {
                         while (reader.Read())
                         {
-                            string biodataName = reader["nama"].ToString();
+                            string biodataName = EncryptionHelper.DecryptString(reader["nama"].ToString());
+                            biodataName = biodataName.Trim('"');
+                            Console.WriteLine("Trimmed biodata name: " + biodataName);
 
                             if (System.Text.RegularExpressions.Regex.IsMatch(biodataName, namePattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                             {
                                 Console.WriteLine("Match found: " + biodataName);
                                 var ktpData = new KTPData(
-                                    reader["NIK"].ToString(),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["NIK"].ToString())),
                                     // reader["nama"].ToString(),
                                     ownerName,
-                                    reader["tempat_lahir"].ToString(),
-                                    reader["tanggal_lahir"].ToString(),
-                                    reader["jenis_kelamin"].ToString(),
-                                    reader["golongan_darah"].ToString(),
-                                    reader["alamat"].ToString(),
-                                    reader["agama"].ToString(),
-                                    reader["status_perkawinan"].ToString(),
-                                    reader["pekerjaan"].ToString(),
-                                    reader["kewarganegaraan"].ToString()
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["tempat_lahir"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["tanggal_lahir"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["jenis_kelamin"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["golongan_darah"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["alamat"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["agama"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["status_perkawinan"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["pekerjaan"].ToString())),
+                                    trimDoubleQuote(EncryptionHelper.DecryptString(reader["kewarganegaraan"].ToString()))
                                 );
                                 biodataList.Add(ktpData);
                             }
@@ -211,5 +215,10 @@ namespace FingerprintApi.Controllers
             }
         }
 
+        public string trimDoubleQuote(string str)
+        {
+            str = str.Trim('"');
+            return str;
+        }
     }
 }
