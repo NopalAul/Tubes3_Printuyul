@@ -174,7 +174,7 @@ namespace FingerprintApi.Controllers
                         {
                             string biodataName = EncryptionHelper.DecryptString(reader["nama"].ToString());
                             biodataName = biodataName.Trim('"');
-                            Console.WriteLine("Trimmed biodata name: " + biodataName);
+                            // Console.WriteLine("Trimmed biodata name: " + biodataName);
 
                             if (System.Text.RegularExpressions.Regex.IsMatch(biodataName, namePattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                             {
