@@ -6,10 +6,8 @@ using System.Linq;
 
 class InsertSidikJariToCSV
 {
-    static void Main(string[] args)
+    public static void InsertSidikJari(string csvFilePath, string dbPath)
     {
-        string csvFilePath = "encrypted_sidik_jari.csv";
-        string dbPath = "EncryptedData.db";
 
         List<string[]> sidikJariEntries = ReadCsv(csvFilePath);
         InsertIntoDatabase(sidikJariEntries, dbPath);

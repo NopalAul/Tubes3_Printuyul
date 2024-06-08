@@ -6,10 +6,8 @@ using System.Linq;
 
 class InsertBiodataToCSV
 {
-    static void Main(string[] args)
+    public static void InsertBiodata(string csvFilePath, string dbPath)
     {
-        string csvFilePath = "encrypted_biodata.csv";
-        string dbPath = "EncryptedData.db";
 
         List<string[]> biodataEntries = ReadCsv(csvFilePath);
         InsertIntoDatabase(biodataEntries, dbPath);
