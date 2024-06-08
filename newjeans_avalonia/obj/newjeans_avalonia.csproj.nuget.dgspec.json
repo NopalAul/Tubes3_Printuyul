@@ -1,26 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj": {}
+    "F:\\Repository\\Tubes3_Printuyul\\newjeans_avalonia\\newjeans_avalonia.csproj": {}
   },
   "projects": {
-    "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj": {
+    "F:\\Repository\\Tubes3_Printuyul\\newjeans_avalonia\\newjeans_avalonia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj",
+        "projectUniqueName": "F:\\Repository\\Tubes3_Printuyul\\newjeans_avalonia\\newjeans_avalonia.csproj",
         "projectName": "newjeans_avalonia",
-        "projectPath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/newjeans_avalonia.csproj",
-        "packagesPath": "/Users/denisefeliciatiowanni/.nuget/packages/",
-        "outputPath": "/Users/denisefeliciatiowanni/Desktop/uni/S02E02/IF2211 STIMA/Tubes3_Printuyul/newjeans_avalonia/obj/",
+        "projectPath": "F:\\Repository\\Tubes3_Printuyul\\newjeans_avalonia\\newjeans_avalonia.csproj",
+        "packagesPath": "C:\\Users\\zakiy\\.nuget\\packages\\",
+        "outputPath": "F:\\Repository\\Tubes3_Printuyul\\newjeans_avalonia\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/denisefeliciatiowanni/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\zakiy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -93,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
