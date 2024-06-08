@@ -191,8 +191,8 @@ public class FingerprintMatcher
                 // Perform Hamming Distance calculation
                 // Console.WriteLine($"pattern: {pattern}");
                 // Console.WriteLine($"croppedReferenceText: {croppedReferenceText}");
-                int distance = Levenshtein(pattern, croppedReferenceText, pattern.Length, croppedReferenceText.Length);
-                // int distance = HammingDistance(pattern, croppedReferenceText);
+                // int distance = Levenshtein(pattern, croppedReferenceText, pattern.Length, croppedReferenceText.Length);
+                int distance = HammingDistance(pattern, croppedReferenceText);
                 // int distance = FindLCSLength(pattern, croppedReferenceText);
                 Console.WriteLine($"distance: {distance}");
                 // // print pattern and croppedReferenceText
@@ -254,8 +254,16 @@ public class FingerprintMatcher
             Console.WriteLine($"maxSimilarity: {maxSimilarity}");
 
             maxSimilarity *= 100;
-            Console.WriteLine($"No exact match found. Most similar fingerprint is in image: {Path.GetFileName(mostSimilarImage)} with similarity {maxSimilarity}%");
-            return (mostSimilarImage ?? string.Empty, maxSimilarity, false);
+            if (maxSimilarity >= 50)
+            {
+                Console.WriteLine($"Most similar fingerprint found in image: {Path.GetFileName(mostSimilarImage)} with similarity {maxSimilarity}%");
+                return (mostSimilarImage ?? string.Empty, maxSimilarity, false);
+            }
+            else
+            {
+                Console.WriteLine("No similar fingerprint found.");
+                return (null, 0, false);
+            }
         }
     }
 }

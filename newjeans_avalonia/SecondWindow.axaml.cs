@@ -59,7 +59,7 @@ namespace newjeans_avalonia
                 Title = "Select an Image",
                 Filters = new List<FileDialogFilter>
                 {
-                    new FileDialogFilter { Name = "Image Files", Extensions = new List<string> { "jpg", "jpeg", "png", "bmp" } }
+                    new FileDialogFilter { Name = "Image Files", Extensions = new List<string> { "bmp" } }
                 },
                 AllowMultiple = false
             };
@@ -144,6 +144,14 @@ namespace newjeans_avalonia
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsAsync<dynamic>();
+
+                        // jika result.similarImage null, maka ShowMessageAsync("No matching biodata found.")
+                        if (result.similarImage == null)
+                        {
+                            await ShowMessageAsync("No matching biodata found.");
+                            return;
+                        }
+
                         string similarImage = result.similarImage ?? "N/A";
                         double percentage = result.percentage ?? 0;
                         long executionTime = result.executionTime ?? 0; // Execution time in milliseconds
