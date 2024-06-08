@@ -20,6 +20,14 @@ namespace newjeans_avalonia
         {
             InitializeComponent();
             _appState = appState;
+
+            // Reset UI elements
+            DisplayImage.Source = null;
+            MethodDropdown.SelectedItem = null;
+            SimilarityTextBlock.Text = string.Empty;
+            ExecutionTimeTextBlock.Text = string.Empty;
+            ResultsImage.Source = null;
+
             InsertButton.Click += InsertButton_Click;
             SearchButton.Click += OnSearchButtonClick;
             this.FindControl<Button>("NavigateButton2")!.Click += OnNavigateButtonClick2;
@@ -72,7 +80,7 @@ namespace newjeans_avalonia
                 await ShowMessageAsync("Please perform a search before seeing details.");
                 return;
             }
-            
+
             ThirdWindow thirdWindow = new ThirdWindow(_appState);
             thirdWindow.Show();
             this.Close(); // Optionally close the current window
@@ -135,10 +143,35 @@ namespace newjeans_avalonia
                         Console.WriteLine(imageUrl);
                         await FetchAndDisplayImageAsync(imageUrl);
 
+                        _appState.ResultImageFilename = similarImage;
                         _appState.Similarity = $"{percentage} %";
                         _appState.ExecutionTime = $"{executionTime} ms";
                         SimilarityTextBlock.Text = _appState.Similarity;
                         ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
+
+                        string apiUrl = $"http://localhost:5141/api/fingerprint/biodata/{similarImage}";
+
+                        var biodataResponse = await client.GetAsync(apiUrl);
+                        if (biodataResponse.IsSuccessStatusCode)
+                        {
+                            var biodata = await biodataResponse.Content.ReadAsAsync<KTPData>();
+
+                            _appState.ktpData.name = biodata.name;
+                            _appState.ktpData.NIK = biodata.NIK;
+                            _appState.ktpData.birth_place = biodata.birth_place;
+                            _appState.ktpData.birth_date = biodata.birth_date;
+                            _appState.ktpData.gender = biodata.gender;
+                            _appState.ktpData.blood_type = biodata.blood_type;
+                            _appState.ktpData.address = biodata.address;
+                            _appState.ktpData.religion = biodata.religion;
+                            _appState.ktpData.marriage_status = biodata.marriage_status;
+                            _appState.ktpData.job = biodata.job;
+                            _appState.ktpData.citizenhip = biodata.citizenhip;
+                        }
+                        else
+                        {
+                            await ShowMessageAsync("No matching biodata found.");
+                        }
 
                         if (!exactMatchFound)
                         {
@@ -164,6 +197,7 @@ namespace newjeans_avalonia
             }
         }
 
+
         private async Task ShowMessageAsync(string message)
         {
             var messageBox = new MessageBox { Message = message };
@@ -174,39 +208,37 @@ namespace newjeans_avalonia
         {
             try
             {
-                var response = await client.GetAsync(imageUrl).ConfigureAwait(false);
-
-                if (response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    var imageBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+                    var response = await client.GetAsync(imageUrl).ConfigureAwait(false);
 
-                    // image load and setting source
-                    await Task.Run(async () =>
+                    if (response.IsSuccessStatusCode)
                     {
-                        using (var stream = new MemoryStream(imageBytes))
-                        {
-                            var bitmap = new Bitmap(stream);
+                        var imageBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
-                            // main thread update ui
-                            await Dispatcher.UIThread.InvokeAsync(() =>
+                        await Task.Run(async () =>
+                        {
+                            using (var stream = new MemoryStream(imageBytes))
                             {
-                                ResultsImage.Source = bitmap;
-                                _appState.ResultImage = bitmap;
-                                LoadingImage.IsVisible = false; // Hide loading image
-                            });
-                        }
-                    });
-                }
-                else
-                {
-                    await ShowMessageAsync("Error fetching image from the server.");
-                    LoadingImage.IsVisible = false;
+                                var bitmap = new Bitmap(stream);
+
+                                await Dispatcher.UIThread.InvokeAsync(() =>
+                                {
+                                    ResultsImage.Source = bitmap;
+                                    _appState.ResultImage = bitmap;
+                                });
+                            }
+                        });
+                    }
+                    else
+                    {
+                        await ShowMessageAsync("Error fetching image from the server.");
+                    }
                 }
             }
             catch (Exception ex)
             {
                 await ShowMessageAsync($"Exception occurred while fetching the image: {ex.Message}");
-                LoadingImage.IsVisible = false;
             }
         }
     }

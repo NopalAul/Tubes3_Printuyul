@@ -1,6 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
-using Avalonia.Markup.Xaml;
+using System;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Avalonia.Threading;
 
 namespace newjeans_avalonia
 {
@@ -13,30 +17,75 @@ namespace newjeans_avalonia
             InitializeComponent();
             _appState = appState;
 
-            // if (_appState.CurrentImage != null)
-            // {
-            //     //
-            // }
+            // LoadingImage.IsVisible = false;
+            FetchAndDisplayBiodata();
 
-            BindDummyData();
-            
             this.FindControl<Button>("BackButton")!.Click += OnBackButtonClick;
             this.FindControl<Button>("RetryButton")!.Click += OnRetryButtonClick;
         }
 
-        private void BindDummyData()
+        private async void FetchAndDisplayBiodata()
         {
-            NamaText.Text = "John Doe";
-            NikText.Text = "1234567890";
-            TempatLahirText.Text = "Jakarta";
-            TanggalLahirText.Text = "01 Januari 2000";
-            JenisKelaminText.Text = "Laki-laki";
-            GolonganDarahText.Text = "A+";
-            AlamatText.Text = "Jl. Raya No. 123";
-            AgamaText.Text = "Islam";
-            StatusPerkawinanText.Text = "Belum Menikah";
-            PekerjaanText.Text = "Developer";
-            KewarganegaraanText.Text = "WNI";
+            // try
+            // {
+            //     LoadingImage.IsVisible = true;
+            if (_appState.ResultImage != null)
+            {
+                // string filename = _appState.ResultImageFilename;
+                // Console.WriteLine(filename);
+                // string apiUrl = $"http://localhost:5141/api/fingerprint/biodata/{filename}";
+
+                // using (var client = new HttpClient())
+                // {
+                //     var response = await client.GetAsync(apiUrl);
+                //     if (response.IsSuccessStatusCode)
+                //     {
+                //         var biodata = await response.Content.ReadAsAsync<KTPData>();
+
+                NamaText.Text = _appState.ktpData.name;
+                NikText.Text = _appState.ktpData.NIK;
+                TempatLahirText.Text = _appState.ktpData.birth_place;
+                TanggalLahirText.Text = _appState.ktpData.birth_date;
+                JenisKelaminText.Text = _appState.ktpData.gender;
+                GolonganDarahText.Text = _appState.ktpData.blood_type;
+                AlamatText.Text = _appState.ktpData.address;
+                AgamaText.Text = _appState.ktpData.religion;
+                StatusPerkawinanText.Text = _appState.ktpData.marriage_status;
+                PekerjaanText.Text = _appState.ktpData.job;
+                KewarganegaraanText.Text = _appState.ktpData.citizenhip;
+
+                // NamaText.Text = biodata.name;
+                // NikText.Text = biodata.NIK;
+                // TempatLahirText.Text = biodata.birth_place;
+                // TanggalLahirText.Text = biodata.birth_date;
+                // JenisKelaminText.Text = biodata.gender;
+                // GolonganDarahText.Text = biodata.blood_type;
+                // AlamatText.Text = biodata.address;
+                // AgamaText.Text = biodata.religion;
+                // StatusPerkawinanText.Text = biodata.marriage_status;
+                // PekerjaanText.Text = biodata.job;
+                // KewarganegaraanText.Text = biodata.citizenhip;
+                //     }
+                //     else
+                //     {
+                //         await ShowMessageAsync("No matching biodata found.");
+                //     }
+                // }
+            }
+            // catch (Exception ex)
+            // {
+            //     await ShowMessageAsync($"Exception occurred while fetching biodata: {ex.Message}");
+            // } 
+            // finally
+            // {
+            //     LoadingImage.IsVisible = false;
+            // }
+        }
+
+        private async Task ShowMessageAsync(string message)
+        {
+            var messageBox = new MessageBox { Message = message };
+            await messageBox.ShowDialog(this);
         }
 
         private void OnBackButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -58,9 +107,13 @@ namespace newjeans_avalonia
         {
             _appState.CurrentImage = null;
             _appState.ResultImage = null;
-            _appState.SelectedAlgorithm = string.Empty;
+            _appState.SelectedAlgorithm = null;
             _appState.Similarity = string.Empty;
             _appState.ExecutionTime = string.Empty;
+            _appState.ResultImageFilename = null;
+            _appState.ktpData = new KTPData("default_NIK", "default_name", "default_birth_place", "default_birth_date",
+                                            "default_gender", "default_blood_type", "default_address", "default_religion",
+                                            "default_marriage_status", "default_job", "default_citizenship");
         }
     }
 }
