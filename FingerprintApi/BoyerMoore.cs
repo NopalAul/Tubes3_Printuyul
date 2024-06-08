@@ -101,4 +101,40 @@ public class BoyerMoore
 
         return matches;
     }
+
+    public void PrintBadCharacterTable(string pattern)
+    {
+        int[] badCharTable = BuildBadCharacterTable(pattern);
+        Console.WriteLine("Bad Character Table:");
+        for (int i = 0; i < badCharTable.Length; i++)
+        {
+            if (badCharTable[i] != -1)
+            {
+                Console.WriteLine($"Character '{(char)i}' -> {badCharTable[i]}");
+            }
+        }
+    }
+
+    // static void Main(string[] args)
+    // {
+    //     string text = "feliciadenisetiowanni";
+    //     string pattern = "denise";
+        
+    //     BoyerMoore bm = new BoyerMoore();
+    //     List<int> matches = bm.BM(text, pattern);
+        
+    //     if (matches.Count > 0)
+    //     {
+    //         Console.WriteLine("Pattern found at positions:");
+    //         foreach (int match in matches)
+    //         {
+    //             Console.WriteLine(match);
+    //         }
+    //         bm.PrintBadCharacterTable(pattern);
+    //     }
+    //     else
+    //     {
+    //         Console.WriteLine("Pattern not found in the text.");
+    //     }
+    // }
 }
