@@ -16,7 +16,7 @@ Algoritma Boyer-Moore (BM) adalah algoritma pencocokan string yang menggunakan d
 
 Regular Expression (Regex) dalam permasalahan string matching dapat didefinisikan sebagai urutan karakter yang menentukan pola pencarian. Regex biasanya digunakan untuk menemukan atau mengganti teks dalam string dengan mengidentifikasi pola tertentu yang spesifik. Pada tugas ini, sebuah pattern regex dibuat berdasarkan nama asli pada tabel sidik jari yang kemudian dicocokkan dengan nama alay pada tabel biodata.
 
-Pada program ini, ketiga algoritma diatas digunakan untuk mencocokkan sebuah citra sidik jari terhadap biodata pemiliknya. Dan apabila tidak ditemukan, maka program akan menggunakan Levenshtein untuk mencari yang terdekat.
+Pada program ini, ketiga algoritma diatas digunakan untuk mencocokkan sebuah citra sidik jari terhadap biodata pemiliknya. Dan apabila tidak ditemukan, maka program akan menggunakan algoritma Hemming Distance untuk mencari yang terdekat.
 
 ## Project Structure
 ```
