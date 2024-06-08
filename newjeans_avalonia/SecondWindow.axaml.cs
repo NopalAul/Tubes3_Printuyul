@@ -102,9 +102,19 @@ namespace newjeans_avalonia
 
             if (DisplayImage.Source is Bitmap currentBitmap && !string.IsNullOrEmpty(selectedAlgorithm))
             {
+                // stopwatch execution time
+                var stopwatch = new System.Diagnostics.Stopwatch();
+                stopwatch.Start();
+
                 LoadingImage.IsVisible = true;
                 await ProcessImageAsync(currentBitmap, selectedAlgorithm);
                 LoadingImage.IsVisible = false;
+
+                // stop stopwatch
+                stopwatch.Stop();
+                // update _appState kemudian tampilkan di ExecutionTimeTextBlock
+                _appState.ExecutionTime = $"{stopwatch.ElapsedMilliseconds} ms";
+                ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
             }
             else
             {
@@ -147,7 +157,7 @@ namespace newjeans_avalonia
                         _appState.Similarity = $"{percentage} %";
                         _appState.ExecutionTime = $"{executionTime} ms";
                         SimilarityTextBlock.Text = _appState.Similarity;
-                        ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
+                        // ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
 
                         string apiUrl = $"http://localhost:5141/api/fingerprint/biodata/{similarImage}";
 
@@ -167,6 +177,17 @@ namespace newjeans_avalonia
                             _appState.ktpData.marriage_status = biodata.marriage_status;
                             _appState.ktpData.job = biodata.job;
                             _appState.ktpData.citizenhip = biodata.citizenhip;
+                            // _appState.ktpData.executionTimeKTP = biodata.executionTimeKTP;
+
+                            // Console.WriteLine("Masuk seocnd");
+                            // ubah executionTime dan executionTimeKTP menjadi long, lalu jumlahkan waktu executionTime dengan executionTimeKTP
+                            // long totalExecutionTime = executionTime + long.Parse(_appState.ktpData.executionTimeKTP);
+                            // // test print
+                            // Console.WriteLine($"Execution TOTAL: {totalExecutionTime} ms");
+
+                            // // ubah totalExecutionTime menjadi string
+                            // _appState.ExecutionTime = $"{totalExecutionTime} ms";
+                            // // ExecutionTimeTextBlock.Text = _appState.ExecutionTime;
                         }
                         else
                         {
@@ -184,6 +205,8 @@ namespace newjeans_avalonia
                                 await ShowMessageAsync("No exact match found using KMP. The search is done using Hamming Distance.");
                             }
                         }
+
+                        // ExecutionTimeTextBlock.Text = _appState.ExecutionTime; // catcher overall
                     }
                     else
                     {
