@@ -25,21 +25,49 @@ Pada program ini, ketiga algoritma diatas digunakan untuk mencocokkan sebuah cit
 
 ## Project Structure
 ```
-│
-├── doc
-│   └── Printuyul.pdf
-│
-├── src
-│   ├── FingerprintApi
-│   │   ├── ///-1
-│   │   └── ///-2
-│   ├── newjeans_avalonia
-│   └── xx.py
-│
-├── test
-│
-└── README.md
-
+Tubes3_Printuyul /
+├── doc/
+│   └── Printuyul
+├── src/
+│   ├── Encryption/
+│   │   ├── encrypt_csv.cs
+│   │   ├── EncryptionHelper.cs
+│   │   ├── InsertBiodataFromCSV.cs
+│   │   ├── InsertSidikJariFromCSV.cs
+│   │   └── Program.cs
+│   ├── FingerprintApi/
+│   │   ├── BooyerMoore.cs
+│   │   ├── DataController.cs
+│   │   ├── EncryptionHelper.cs
+│   │   ├── FingerData.cs
+│   │   ├── FingerprintApi.csproj
+│   │   ├── FingerprintApi.http
+│   │   ├── FingerprintController.cs
+│   │   ├── FingerprintMatcher.cs
+│   │   ├── ImageConverter.cs
+│   │   ├── KnuthMorrisPratt.cs
+│   │   ├── KTPData.cs
+│   │   ├── LCS.cs
+│   │   ├── Program.cs
+│   │   ├── Regex.cx
+│   │   ├── EncryptedData.db
+│   │   └── MainData.db
+│   └── newjeans_alvalonia/
+│       ├── assets # Folder gambar
+│       ├── App.axaml.cs
+│       ├── AppSatate.cs
+│       ├── KTPData.cs
+│       ├── MainWindow.axaml.cs
+│       ├── MessageBox.axaml.cs
+│       ├── Program.cs
+│       ├── SeconWindow.axaml.cs
+│       └── ThirdWindow.axaml.cs
+├── test/
+│   ├── CsvFiles # Berisi file-file CSV
+│   └── DataBackup # Berisi backup basis data
+├── run.bat
+├── setup.bat
+└── readme.md
 ```
 
 ## Program Dependencies
