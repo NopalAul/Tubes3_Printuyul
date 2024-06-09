@@ -125,6 +125,7 @@ namespace FingerprintApi.Controllers
                 Console.WriteLine("masuk");
                 string imagePath = ("../test/" + filename);
                 Console.WriteLine("Image path: " + imagePath);
+                imagePath = '"'+imagePath+'"';
 
                 // Controller dataController = new Controller("MainData.db");
                 Controller dataController = new Controller("EncryptedData.db");
@@ -140,7 +141,7 @@ namespace FingerprintApi.Controllers
                         {
                             if (!reader.IsDBNull(reader.GetOrdinal("nama")))
                             {
-                                ownerName = reader["nama"].ToString();
+                                ownerName = reader["nama"].ToString().Trim('"');
                                 Console.WriteLine("Owner name: " + ownerName);
                             }
                             else

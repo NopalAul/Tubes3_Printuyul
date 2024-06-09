@@ -102,7 +102,9 @@ class Controller{
             {
                 while (reader.Read())
                 {
-                    string berkasCitra = "../"+reader["berkas_citra"].ToString();
+                    string berkasCitra = reader["berkas_citra"].ToString();
+                    berkasCitra = berkasCitra.Trim('"');
+                    berkasCitra = "../" + berkasCitra;
                     string nama = reader["nama"].ToString();
                     fingerDataList.Add(new FingerprintData(nama, berkasCitra));
                 }
